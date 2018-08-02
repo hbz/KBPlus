@@ -78,28 +78,46 @@
 
                 <div class="field">
                     <label>Vertrag kopieren</label>
-                    <div class="ui radio checkbox">
-                        <input class="hidden" type="radio" name="generateSlavedLics" value="multiple">
-                        <label>${message(code: 'myinst.emptySubscription.seperate_lics1')}</label>
-                    </div>
-                    <div class="ui radio checkbox">
-                        <input class="hidden" type="radio" name="generateSlavedLics" value="one" checked="checked">
-                        <label>${message(code: 'myinst.emptySubscription.seperate_lics2')}</label>
-                    </div>
-                    <g:if test="${subscriptionInstance.owner?.derivedLicenses}">
+                    <g:if test="${subscriptionInstance.owner}">
                         <div class="ui radio checkbox">
-                            <input class="hidden" type="radio" name="generateSlavedLics" value="reference">
-                            <label>${message(code: 'myinst.emptySubscription.seperate_lics3')}</label>
+                            <g:if test="${subscriptionInstance.owner.derivedLicenses}">
+                                <input class="hidden" type="radio" name="generateSlavedLics" value="no">
+                            </g:if>
+                            <g:else>
+                                <input class="hidden" type="radio" name="generateSlavedLics" value="no" checked="checked">
+                            </g:else>
+                            <label>${message(code: 'myinst.emptySubscription.seperate_lics_no')}</label>
                         </div>
 
-                        <br />
-                        <br />
-                        <g:select from="${subscriptionInstance.owner?.derivedLicenses}" class="ui search dropdown"
-                                  optionKey="${{ 'com.k_int.kbplus.License:' + it.id }}"
-                                  optionValue="${{ it.getGenericLabel() }}"
-                                  name="generateSlavedLicsReference"
-                            />
+                        <div class="ui radio checkbox">
+                            <input class="hidden" type="radio" name="generateSlavedLics" value="multiple">
+                            <label>${message(code: 'myinst.emptySubscription.seperate_lics_multiple')}</label>
+                        </div>
+
+                        <div class="ui radio checkbox">
+                            <input class="hidden" type="radio" name="generateSlavedLics" value="one">
+                            <label>${message(code: 'myinst.emptySubscription.seperate_lics_one')}</label>
+                        </div>
+
+                        <g:if test="${subscriptionInstance.owner.derivedLicenses}">
+                            <div class="ui radio checkbox">
+                                <input class="hidden" type="radio" name="generateSlavedLics" value="reference" checked="checked">
+                                <label>${message(code: 'myinst.emptySubscription.seperate_lics_reference')}</label>
+                            </div>
+
+                            <br />
+                            <br />
+                            <g:select from="${subscriptionInstance.owner?.derivedLicenses}" class="ui search dropdown"
+                                      optionKey="${{ 'com.k_int.kbplus.License:' + it.id }}"
+                                      optionValue="${{ it.getGenericLabel() }}"
+                                      name="generateSlavedLicsReference"
+                                />
+                        </g:if>
+
                     </g:if>
+                    <g:else>
+                        <semui:msg class="info" text="Es ist kein Vertrag vorhanden." />
+                    </g:else>
                 </div>
             </div>
         </g:if>

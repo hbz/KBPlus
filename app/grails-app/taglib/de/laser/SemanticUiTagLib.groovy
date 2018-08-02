@@ -149,7 +149,7 @@ class SemanticUiTagLib {
                 break
             case 'Database':
                 out << '<div class="la-inline-flexbox" data-tooltip="' + message(code:'spotlight.databasetitle') + '" data-position="left center" data-variation="tiny">'
-                out << '    <i class="icon database outline la-list-icon"></i>'
+                out << '    <i class="icon database la-list-icon"></i>'
                 out << '</div>'
                 break
             case 'EBook':
@@ -161,6 +161,27 @@ class SemanticUiTagLib {
                 out << '<div class="la-inline-flexbox" data-tooltip="' + message(code:'spotlight.title') + '" data-position="left center" data-variation="tiny">'
                 out << '    <i class="icon book la-list-icon"></i>'
                 out << '</div>'
+                break
+        }
+    }
+
+    def contactIcon = { attrs, body ->
+
+        switch(attrs.type) {
+            case 'E-Mail':
+                out << '<i class="icon envelope outline la-list-icon"></i>'
+                break
+            case 'Fax':
+                out << '<i class="icon fax la-list-icon"></i>'
+                break
+            case 'Phone':
+                out << '<i class="icon phone la-list-icon"></i>'
+                break
+            case 'Url':
+                out << '<i class="icon globe la-list-icon"></i>'
+                break
+            default:
+                out << '<i class="icon address book la-list-icon"></i>'
                 break
         }
     }

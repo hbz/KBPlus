@@ -173,8 +173,10 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="ui card la-time-card">
                         <div class="content">
+
                             <g:if test="${license.subscriptions && ( license.subscriptions.size() > 0 )}">
                                 <g:each in="${license.subscriptions.sort{it.name}}" var="sub">
                                     <table class="ui la-selectable table">
@@ -186,27 +188,33 @@
                                         <tr>
                                             <th scope="row">${message(code:'license.linkedSubscription', default:'Linked Subscription')}</th>
                                             <td>
-                                                        <g:link controller="subscriptionDetails" action="show" id="${sub.id}">${sub.name}</g:link>
+                                                <g:link controller="subscriptionDetails" action="show" id="${sub.id}">${sub.name}</g:link>
                                             </td>
                                             <td>
-                                            <g:if test="${editable}">
-                                                <div class="ui mini icon buttons">
-                                                    <g:link class="ui button la-selectable-button" name="unlinkSubscription"
-                                                            controller="licenseDetails" action="unlinkSubscription"
-                                                            params="['license':license.id, 'subscription':sub.id]"
-                                                            onclick="return confirm(${message(code:'template.orgLinks.delete.warn')})" >
-                                                        <i class="times icon red"></i>${message(code:'default.button.unlink.label')}
-                                                    </g:link>
-                                                </div>
-                                            </g:if>
+                                                <g:if test="${editable}">
+                                                    <div class="ui mini icon buttons">
+                                                        <g:link class="ui button la-selectable-button" name="unlinkSubscription"
+                                                                controller="licenseDetails" action="unlinkSubscription"
+                                                                params="['license':license.id, 'subscription':sub.id]"
+                                                                onclick="return confirm(${message(code:'template.orgLinks.delete.warn')})" >
+                                                            <i class="times icon red"></i>${message(code:'default.button.unlink.label')}
+                                                        </g:link>
+                                                    </div>
+                                                </g:if>
                                             </td>
                                         </tr>
                                     </table>
                                 </g:each>
                             </g:if>
                             <g:else>
-                                ${message(code:'license.noLinkedSubscriptions', default:'No currently linked subscriptions.')}
+                                <dl>
+                                    <dt class="control-label">${message(code:'subscription.label')}</dt>
+                                    <dd>
+                                        ${message(code:'license.noLinkedSubscriptions', default:'No currently linked subscriptions.')}
+                                    </dd>
+                                </dl>
                             </g:else>
+
                             <dl>
                                 <dt></dt>
                                 <dd>
@@ -214,9 +222,9 @@
                                         <g:form id="linkSubscription" class="ui form" name="linkSubscription" action="linkToSubscription">
                                             <br />
                                             <input type="hidden" name="license" value="${license.id}"/>
-                                            <div class="two fields">
+                                            <div class="fields">
                                                 <div class="field">
-                                                    <g:select optionKey="id" optionValue="name" from="${availableSubs}" name="subscription" class="ui fluid dropdown"/>
+                                                    <g:select optionKey="id" optionValue="name" from="${availableSubs}" name="subscription" class="ui search selectable dropdown"/>
                                                 </div>
                                                 <div class="field">
                                                     <input type="submit" class="ui button" value="${message(code:'default.button.link.label', default:'Link')}"/>
@@ -250,13 +258,13 @@
                                         <g:if test="${license.onixplLicense}">
                                             <g:link controller="onixplLicenseDetails" action="index" id="${license.onixplLicense?.id}">${license.onixplLicense.title}</g:link>
                                             <g:if test="${editable}">
-                                                (
+
                                                 <div class="ui mini icon buttons">
                                                     <g:link class="ui button" controller="licenseDetails" action="unlinkLicense" params="[license_id: license.id, opl_id: onixplLicense.id]">
                                                         <i class="times icon red"></i>${message(code:'default.button.unlink.label')}
                                                     </g:link>
                                                 </div>
-                                                )
+
                                             </g:if>
                                         </g:if>
                                         <g:else>
@@ -270,19 +278,6 @@
                     </div>
                     <div class="ui card">
                         <div class="content">
-
-                        <%--
-                        <dl>
-                            <dt><label class="control-label" for="licenseUrl"><g:message code="license" default="License"/> ${message(code:'license.Url', default:'URL')}</label></dt>
-                            <dd>
-                                <semui:xEditable owner="${license}" field="licenseUrl" id="licenseUrl"/>
-                                <g:if test="${license.licenseUrl}"><a href="${license.licenseUrl}">${message(code:'license.details.licenseLink', default:'License Link')}</a></g:if>
-                            </dd>
-                        </dl>
-                        --%>
-
-
-
 
                         <g:render template="/templates/links/orgLinksAsList"
                                   model="${[roleLinks: visibleOrgLinks,

@@ -84,7 +84,8 @@ class LicenseDetailsController {
               result.pendingChanges = pendingChanges.collect { PendingChange.get(it) }
           }
       }
-      result.availableSubs = getAvailableSubscriptions(result.license, result.user)
+
+      //result.availableSubs = getAvailableSubscriptions(result.license, result.user)
 
       // tasks
       def contextOrg = contextService.getOrg()
@@ -95,7 +96,7 @@ class LicenseDetailsController {
         // restrict visible for templates/links/orgLinksAsList
         result.visibleOrgLinks = []
         result.license.orgLinks?.each { or ->
-            if (! (or.org == contextService.getOrg() && or.roleType.value in ["Licensee", "Licensee_Consortial"])) {
+            if (!(or.org == contextService.getOrg()) && !(or.roleType.value in ["Licensee", "Licensee_Consortial"])) {
                 result.visibleOrgLinks << or
             }
         }
@@ -150,7 +151,15 @@ class LicenseDetailsController {
           }
       }
 
-      withFormat {
+        def subscrQuery = """
+from Subscription as s where 
+  ( ( exists ( select o from s.orgRelations as o where (o.roleType.value IN ('Subscriber', 'Subscription Consortia')) and o.org = :co) ) ) ) 
+  AND ( s.status.value != 'Deleted' ) 
+"""
+        result.availableSubs = Subscription.executeQuery("select s ${subscrQuery}", [co: contextService.getOrg()])
+
+
+        withFormat {
       html result
       json {
         def map = exportService.addLicensesToMap([:], [result.license])
@@ -320,8 +329,11 @@ from Subscription as s where
     if(params.subscription && params.license){
       def sub = Subscription.get(params.subscription)
       def owner = License.get(params.license)
-      owner.addToSubscriptions(sub)
-      owner.save(flush:true)
+        // owner.addToSubscriptions(sub) // GORM problem
+        // owner.save()
+        sub.setOwner(owner)
+        sub.save()
+
     }
     redirect controller:'licenseDetails', action:'show', params: [id:params.license]
 

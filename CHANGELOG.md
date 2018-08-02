@@ -1,7 +1,22 @@
 
-between ..
+0.7
 
-- removed needless copy of jquery-plugin
+- switched to gokb index for listing all packages
+- improved package linking for subscriptions
+- added public gasco overview and details page 
+- added license handling for consortia and consortia members
+- reworked structure of license linking
+- added filter for addressbooks
+- added functionality for deleting addresses and contacts 
+- added list view and delete function for budget codes 
+- reworked org role template, fixed javascript behaviour
+- added translations and increased text length of property definitions
+- added title field for persons
+- added anonymisation for object histories (DSGVO)
+- increased session timeout
+- removed tmp copy of jquery-plugin
+- lots of markup and style changes 
+- minor bugfixes and refactorings
 
 0.6.1
 

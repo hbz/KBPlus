@@ -6,8 +6,10 @@
 <semui:subNav actionName="${actionName}">
     <semui:subNavItem controller="licenseDetails" action="show" params="${[id:params.id]}" message="license.nav.details" />
 
-    <g:if test="${license?.isTemplate() || license?.getLicensor()?.id == contextService.getOrg()?.id}">
-        <semui:subNavItem controller="licenseDetails" action="members" params="${[id:params.id]}" message="license.details.incoming.childs" />
+    <g:if test="${license.getLicensor()?.id == contextService.getOrg()?.id && ! license.isTemplate()}">
+        <g:if test="${!( license.instanceOf && ! license.hasTemplate())}">
+            <semui:subNavItem controller="licenseDetails" action="members" params="${[id:params.id]}" message="license.details.incoming.childs" />
+        </g:if>
     </g:if>
 
     <semui:subNavItem controller="licenseDetails" action="tasks" params="${[id:params.id]}" message="task.plural" />

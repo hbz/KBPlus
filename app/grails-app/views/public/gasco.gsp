@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta name="layout" content="semanticUI">
-    <title>${message(code: 'laser', default: 'LAS:eR')} - ${message(code: 'gasco.title')}</title>
+    <title>${message(code: 'laser', default: 'LAS:eR')} : ${message(code: 'gasco.title')}</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <br />
     <div class="ui grid">
         <div class="eleven wide column">
-            <semui:filter>
+            <div class="ui la-gasco-search segment">
                 <g:form action="gasco" controller="public" method="get" class="form-inline ui small form">
 
                     <div class="field">
@@ -74,7 +74,7 @@
                     </div>
 
                 </g:form>
-            </semui:filter>
+            </div>
         </div>
         <div class="five wide column">
             <img class="ui fluid image" alt="Logo GASCO" class="ui fluid image" src="images/gasco/GASCO-Logo-2_klein.jpg"/>
@@ -84,9 +84,17 @@
     <r:script>
         $(document).ready(function() {
 
-            $( '.js-consortiallicence' ).click(function() {
-                $('#js-consotial-authority').toggleClass('disabled')
-            });
+            function toggleFilterPart() {
+                if ($('.js-consortiallicence input').prop('checked')) {
+                    $('#js-consotial-authority .dropdown').addClass('disabled')
+                    $('#js-consotial-authority select').attr('disabled', 'disabled')
+                } else {
+                    $('#js-consotial-authority .dropdown').removeClass('disabled')
+                    $('#js-consotial-authority select').removeAttr('disabled')
+                }
+            }
+            toggleFilterPart()
+            $('.js-consortiallicence').on('click', toggleFilterPart)
         });
     </r:script>
 
@@ -110,11 +118,11 @@
                     </td>
                     <td>
                         ${sub}
-                        <br>
+
                         <g:each in="${sub.packages}" var="subPkg" status="j">
                             <div class="la-flexbox">
                                 <i class="icon gift la-list-icon"></i>
-                                    ${subPkg.pkg}
+                                <g:link controller="public" action="gascoDetails" id="${subPkg.id}">${subPkg.pkg}</g:link>
                             </div>
                         </g:each>
                     </td>

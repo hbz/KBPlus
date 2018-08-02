@@ -38,10 +38,18 @@ ${personInstance?.contactType == com.k_int.kbplus.RefdataValue.getByValueAndCate
                                           optionValue="value"
                                           value="${personInstance?.contactType?.id}"
                                           noSelection="['': '']"
-                                          onchange="this.form.submit();"/></g:form></dd></dl>
+                                          onchange="this.form.submit();"/></g:form>
+                        </dd>
+                    </dl>
+
+                    <dl><dt id="person_title"><g:message code="person.title.label" default="Title"/></dt>
+                        <dd><semui:xEditable owner="${personInstance}" field="title"/></dd>
+                    </dl>
 
                     <dl><dt id="person_last_name"><g:message code="person.last_name.label" default="Lastname"/></dt>
-                        <dd><semui:xEditable owner="${personInstance}" field="last_name"/></dd></dl>
+                        <dd><semui:xEditable owner="${personInstance}" field="last_name"/></dd>
+                    </dl>
+
                     <g:if test="${(!personInstance.contactType) || personInstance.contactType.value == com.k_int.kbplus.RefdataValue.getByValueAndCategory('Personal contact', 'Person Contact Type').value}">
 
                         <dl><dt><g:message code="person.first_name.label" default="Firstname"/></dt>
@@ -62,13 +70,19 @@ ${personInstance?.contactType == com.k_int.kbplus.RefdataValue.getByValueAndCate
 
                     <dl><dt><g:message code="person.contacts.label" default="Contacts"/></dt>
                         <dd>
-                            <ul>
+                            <div class="ui divided middle aligned selection list la-flex-list la-contact-info-list">
                                 <g:each in="${personInstance.contacts.sort{it.content}}" var="c">
-                                    <li>
-                                        <g:render template="/templates/cpa/contact" model="${[contact: c]}"></g:render>
-                                    </li>
+
+                                    <g:render template="/templates/cpa/contact" model="${[
+                                            contact: c,
+                                            tmplShowDeleteButton: true,
+                                            controller: 'person',
+                                            action: 'show',
+                                            id: personInstance.id
+                                    ]}"></g:render>
+
                                 </g:each>
-                            </ul>
+                            </div>
                             <g:if test="${editable}">
                                 <input class="ui button" type="button" data-semui="modal" href="#contactFormModal"
                                        value="${message(code: 'default.add.label', args: [message(code: 'person.contacts.label', default: 'Contacts')])}">
@@ -79,13 +93,19 @@ ${personInstance?.contactType == com.k_int.kbplus.RefdataValue.getByValueAndCate
 
                     <dl><dt><g:message code="person.addresses.label" default="Addresses"/></dt>
                         <dd>
-                            <ul>
+                            <div class="ui list">
                                 <g:each in="${personInstance.addresses.sort{it.type?.getI10n('value')}}" var="a">
-                                    <li>
-                                        <g:render template="/templates/cpa/address" model="${[address: a]}"></g:render>
-                                    </li>
+
+                                    <g:render template="/templates/cpa/address" model="${[
+                                            address: a,
+                                            tmplShowDeleteButton: true,
+                                            controller: 'person',
+                                            action: 'show',
+                                            id: personInstance.id
+                                    ]}"></g:render>
+
                                 </g:each>
-                            </ul>
+                            </div>
                             <g:if test="${editable}">
                                 <input class="ui button" type="button" data-semui="modal" href="#addressFormModal"
                                        value="${message(code: 'default.add.label', args: [message(code: 'address.label', default: 'Address')])}">
