@@ -337,7 +337,7 @@ class TitleInstance extends AbstractBaseDomain implements AuditTrait {
 
     if (!valid_match && !skip_creation) {
       static_logger.debug("No valid match - creating new title");
-      def ti_status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktuell'])
+      def ti_status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktiv'])
       //result = new TitleInstance(title:title, impId:java.util.UUID.randomUUID().toString(), status:ti_status);
       result = ((titletyp=='BookInstance') ? new BookInstance(title:title, impId:java.util.UUID.randomUUID().toString(), status:ti_status, type: RefdataValue.loc(RefdataCategory.TI_TYPE, [en: 'EBook', de: 'EBook'])) :
               (titletyp=='DatabaseInstance' ? new DatabaseInstance(title:title, impId:java.util.UUID.randomUUID().toString(), status:ti_status, type: RefdataValue.loc(RefdataCategory.TI_TYPE, [en: 'Database', de: 'Database'])) : new JournalInstance(title:title, impId:java.util.UUID.randomUUID().toString(), status:ti_status, type: RefdataValue.loc(RefdataCategory.TI_TYPE, [en: 'Journal', de: 'Journal']))))

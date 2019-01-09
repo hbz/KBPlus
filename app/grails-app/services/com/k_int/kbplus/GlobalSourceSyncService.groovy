@@ -39,7 +39,7 @@ class GlobalSourceSyncService {
     title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Deleted', de: 'Gelöscht'])
 
     if (newtitle.status == 'Current') {
-      title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktuell'])
+      title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktiv'])
     } else if (newtitle.status == 'Retired') {
       title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Retired', de: 'im Ruhestand'])
     }
@@ -242,7 +242,7 @@ class GlobalSourceSyncService {
       def packageStatus = RefdataValue.loc('Package Status', [en: 'Deleted', de: 'Gelöscht'])
 
       if (newpkg.status == 'Current') {
-        packageStatus = RefdataValue.loc('Package Status', [en: 'Current', de: 'Aktuell'])
+        packageStatus = RefdataValue.loc('Package Status', [en: 'Current', de: 'Aktiv'])
       } else if (newpkg.status == 'Retired') {
         packageStatus = RefdataValue.loc('Package Status', [en: 'Retired', de: 'im Ruhestand'])
       }
@@ -394,7 +394,7 @@ class GlobalSourceSyncService {
         def TippStatus = RefdataValue.loc(RefdataCategory.TIPP_STATUS, [en: 'Deleted', de: 'Gelöscht'])
 
         if (tipp.status == 'Current') {
-          TippStatus = RefdataValue.loc(RefdataCategory.TIPP_STATUS, [en: 'Current', de: 'Aktuell'])
+          TippStatus = RefdataValue.loc(RefdataCategory.TIPP_STATUS, [en: 'Current', de: 'Aktiv'])
         } else if (tipp.status == 'Retired') {
           TippStatus = RefdataValue.loc(RefdataCategory.TIPP_STATUS, [en: 'Retired', de: 'im Ruhestand'])
         }
@@ -849,7 +849,7 @@ class GlobalSourceSyncService {
           def status = RefdataValue.loc("${cfg.name} Status", [en: 'Deleted', de: 'Gelöscht'])
 
           if (parsed_rec.parsed_rec.status == 'Current') {
-            status = RefdataValue.loc("${cfg.name} Status", [en: 'Current', de: 'Aktuell'])
+            status = RefdataValue.loc("${cfg.name} Status", [en: 'Current', de: 'Aktiv'])
           } else if (parsed_rec.parsed_rec.status == 'Retired') {
             status = RefdataValue.loc("${cfg.name} Status", [en: 'Retired', de: 'im Ruhestand'])
           }
@@ -880,7 +880,7 @@ class GlobalSourceSyncService {
 
           def status = RefdataValue.loc("${cfg.name} Status", [en: 'Deleted', de: 'Gelöscht'])
           if (parsed_rec.parsed_rec.status == 'Current') {
-            status = RefdataValue.loc("${cfg.name} Status", [en: 'Current', de: 'Aktuell'])
+            status = RefdataValue.loc("${cfg.name} Status", [en: 'Current', de: 'Aktiv'])
           } else if (parsed_rec.parsed_rec.status == 'Retired') {
             status = RefdataValue.loc("${cfg.name} Status", [en: 'Retired', de: 'im Ruhestand'])
           }
@@ -1067,7 +1067,7 @@ class GlobalSourceSyncService {
               title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Deleted', de: 'Gelöscht'])
 
               if (titleinfo.status == 'Current') {
-                title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktuell'])
+                title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Current', de: 'Aktiv'])
               } else if (titleinfo.status == 'Retired') {
                 title_instance.status = RefdataValue.loc(RefdataCategory.TI_STATUS, [en: 'Retired', de: 'im Ruhestand'])
               }
