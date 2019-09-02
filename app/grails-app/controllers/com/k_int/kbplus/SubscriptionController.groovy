@@ -3578,6 +3578,7 @@ class SubscriptionController extends AbstractDebugController {
                             if (task.status != RefdataValue.loc('Task Status', [en: 'Done', de: 'Erledigt'])) {
                                 Task newTask = new Task()
                                 InvokerHelper.setProperties(newTask, task.properties)
+                                newTask.systemCreateDate = new Date()
                                 newTask.subscription = newSub2
                                 newTask.save(flush: true)
                             }
@@ -4475,6 +4476,7 @@ class SubscriptionController extends AbstractDebugController {
 
                         Task newTask = new Task()
                         InvokerHelper.setProperties(newTask, task.properties)
+                        newTask.systemCreateDate = new Date()
                         newTask.subscription = newSubscriptionInstance
                         newTask.save(flush: true)
                     }
