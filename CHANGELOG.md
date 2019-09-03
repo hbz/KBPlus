@@ -1,3 +1,9 @@
+0.19.8
+
+- hotfix: add many title to subscription
+- hotfix: private properties not editable for singel user by consortial subscription
+- hotfix: Wrong GOKB ID by Tipp Show View
+
 0.20-RC
 
 - TODO
