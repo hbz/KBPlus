@@ -210,11 +210,6 @@
     </table>
 
     </g:if>
-<style>
-.ui.table thead tr:first-child>th {
-    top: 48px!important;
-}
-</style>
 <sec:ifAnyGranted roles="ROLE_USER">
     <style>
         .ui.table thead tr:first-child>th {
@@ -222,4 +217,10 @@
         }
     </style>
 </sec:ifAnyGranted>
+
+<style>
+    .ui.table thead tr:first-child>th {
+        top: 48px!important;
+    }
+</style>
 </body>
