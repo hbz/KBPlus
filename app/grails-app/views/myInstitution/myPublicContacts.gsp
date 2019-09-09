@@ -1,6 +1,7 @@
 <%@ page
 import="de.laser.helper.RDStore; com.k_int.kbplus.Org; com.k_int.kbplus.Person; com.k_int.kbplus.PersonRole; com.k_int.kbplus.RefdataValue; com.k_int.kbplus.RefdataCategory"
 %>
+<laser:serviceInjection />
 <!doctype html>
 
 <laser:serviceInjection />
@@ -28,13 +29,13 @@ import="de.laser.helper.RDStore; com.k_int.kbplus.Org; com.k_int.kbplus.Person; 
         <%-- test, very ugly, is to avoid Hibernate Proxy exception when changing context --%>
         <g:render template="/organisation/nav" model="${[orgInstance: Org.get(institution.id), inContextOrg: true]}"/>
 
-        <g:if test="${editable}">
+        <g:if test="${editable && contextService.user.hasAffiliation('INST_EDITOR')}">
+
             <input class="ui button"
                    value="${message(code: 'person.create_new.contactPerson.label')}"
                    data-semui="modal"
                    data-href="#personFormModal" />
         </g:if>
-
         <g:render template="/person/formModal" model="['org': institution,
                                                        'isPublic': RDStore.YN_YES,
                                                        'presetFunctionType': RefdataValue.getByValueAndCategory('General contact person', 'Person Function')
