@@ -100,6 +100,7 @@
         <g:set var="previousSubscriptions" value="${Links.findByLinkTypeAndObjectTypeAndDestination(RDStore.LINKTYPE_FOLLOWS,Subscription.class.name,subscriptionInstance.id)}"/>
         <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_YODA">
             <div class="divider">OLD:</div>
+            <g:set var="previousSubscriptions" value="${Links.findByLinkTypeAndObjectTypeAndDestination(RDStore.LINKTYPE_FOLLOWS,Subscription.class.name,subscriptionInstance.id)}"/>
             <g:if test="${subscriptionInstance.getCalculatedType() == TemplateSupport.CALCULATED_TYPE_LOCAL && !previousSubscriptions}">
                 <semui:actionsDropdownItem controller="subscription" action="launchRenewalsProcess"
                                        params="${[id: params.id]}" message="subscription.details.renewals.label"/>
