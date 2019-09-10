@@ -131,3 +131,35 @@ update i10n_translation set i10n_value_de = 'Studierende' where i10n_value_de = 
 update i10n_translation set i10n_value_de = 'Wissenschaftliche Spezialbibliothek' where i10n_value_de = 'Wissenschafltiche Spezialbibliothek';
 update i10n_translation set i10n_value_en = 'Wissenschaftliche Spezialbibliothek' where i10n_value_en = 'Wissenschafltiche Spezialbibliothek';
 update refdata_value set rdv_value = 'Wissenschaftliche Spezialbibliothek' where rdv_value = 'Wissenschafltiche Spezialbibliothek';
+
+
+-- START OF ERMS-1666 --
+-- Kontrolle vorher: zu löschende Einträge
+SELECT * FROM Person AS p
+                left join person_role pr on p.prs_id = pr_prs_fk
+WHERE p.prs_is_public = true
+  and pr isnull;
+
+
+DELETE FROM contact AS c
+WHERE c.ct_prs_fk in (SELECT p2.prs_id FROM Person AS p2
+                                           left join person_role pr on p2.prs_id = pr_prs_fk
+                   WHERE p2.prs_is_public = true
+                     and pr isnull);
+DELETE FROM address AS a
+WHERE a.adr_prs_fk in (SELECT p2.prs_id FROM Person AS p2
+                                           left join person_role pr on p2.prs_id = pr_prs_fk
+                   WHERE p2.prs_is_public = true
+                     and pr isnull);
+DELETE FROM Person AS p
+WHERE p.prs_id in (SELECT p2.prs_id FROM Person AS p2
+                                  left join person_role pr on p2.prs_id = pr_prs_fk
+               WHERE p2.prs_is_public = true
+                 and pr isnull);
+
+-- Kontrolle nachher: Liste müsste nun LEER sein!
+SELECT * FROM Person AS p
+                left join person_role pr on p.prs_id = pr_prs_fk
+WHERE p.prs_is_public = true
+  and pr isnull;
+-- END ERMS-1666 --
