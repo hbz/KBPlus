@@ -8,6 +8,10 @@
 
 - TODO
 
+0.19.9
+
+- hotfix: renewal subscription menu 
+
 0.19.8
 
 - hotfix: add many title to subscription
