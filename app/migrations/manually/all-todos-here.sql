@@ -48,3 +48,63 @@ ALTER TABLE org DROP COLUMN org_origin_edit_url;
 --DELETE FROM identifier_occurrence where io_canonical_id in (select id_id from identifier left join identifier_namespace "in" on identifier.id_ns_fk = "in".idns_id where "in".idns_ns in ('originEditUrl','originediturl'));
 --DELETE FROM identifier where id_ns_fk = (select idns_id from identifier_namespace where idns_ns in ('originEditUrl','originediturl'));
 --DELETE FROM identifier_namespace where idns_ns in ('originEditUrl','originediturl');
+
+
+-- 2019-10-23
+-- (ERMS-1808) purging of legacy GOKb copy tables
+-- relink
+ALTER TABLE doc_context DROP CONSTRAINT fk30eba9a871246d01;
+alter table doc_context alter column dc_pkg_fk set data type text;
+update doc_context set dc_pkg_fk = package.pkg_gokb_id from package where dc_pkg_fk = package.pkg_id::text;
+alter table fact drop constraint fk2fd66c4cb39ba6;
+alter table fact alter column related_title_id set data type text;
+update fact set related_title_id = title_instance.ti_gokb_id from title_instance where related_title_id = ti_gokb_id::text;
+ALTER TABLE identifier_occurrence DROP CONSTRAINT fkf0533f273508b27a;
+ALTER TABLE identifier_occurrence DROP CONSTRAINT fkf0533f27b37dc426;
+ALTER TABLE identifier_occurrence DROP CONSTRAINT fkf0533f27cddd0aff;
+alter table identifier_occurrence alter column io_pkg_fk set data type text;
+alter table identifier_occurrence alter column io_ti_fk set data type text;
+alter table identifier_occurrence alter column io_tipp_fk set data type text;
+update identifier_occurrence set io_pkg_fk = package.pkg_gokb_id from package where io_pkg_fk = package.pkg_id::text;
+update identifier_occurrence set io_ti_fk = title_instance.ti_gokb_id from title_instance where io_ti_fk = title_instance.ti_id::text;
+update identifier_occurrence set io_tipp_fk = title_instance_package_platform.tipp_gokb_id from title_instance_package_platform where io_tipp_fk = title_instance_package_platform.tipp_id::text;
+alter table issue_entitlement drop constraint fk2d45f6c7330b4f5;
+alter table issue_entitlement alter column ie_tipp_fk set data type text;
+update issue_entitlement set ie_tipp_fk = title_instance_package_platform.tipp_gokb_id from title_instance_package_platform where ie_tipp_fk = title_instance_package_platform.tipp_id::text;
+alter table org_role drop constraint fk4e5c38f1e646d31d;
+alter table org_role drop constraint fk4e5c38f16d6b9898;
+alter table org_role alter column or_pkg_fk set data type text;
+alter table org_role alter column or_title_fk set data type text;
+update org_role set or_pkg_fk = package.pkg_gokb_id from package where or_pkg_fk = package.pkg_id::text;
+update org_role set or_title_fk = title_instance.ti_gokb_id from title_instance where or_title_fk = title_instance.ti_id::text;
+alter table person_role drop constraint fke6a16b202504b59;
+alter table person_role drop constraint fke6a16b207a8b421e;
+alter table person_role alter column pr_title_fk set data type text;
+alter table person_role alter column pr_pkg_fk set data type text;
+update person_role set pr_title_fk = title_instance.ti_gokb_id from title_instance where pr_title_fk = title_instance.ti_id::text;
+update person_role set pr_pkg_fk = package.pkg_gokb_id from package where pr_pkg_fk = package.pkg_id::text;
+alter table pending_change drop constraint fk65cbdf586459a10d;
+alter table pending_change drop column pc_pkg_fk;
+alter table subscription_package drop constraint fk5122c72467963563;
+alter table subscription_package alter column sp_pkg_fk set data type text;
+update subscription_package set sp_pkg_fk = package.pkg_gokb_id from package where sp_pkg_fk = package.pkg_id::text;
+alter table task drop constraint fk36358511779714;
+alter table task alter column tsk_pkg_fk set data type text;
+update task set tsk_pkg_fk = package.pkg_gokb_id from package where tsk_pkg_fk = package.pkg_id::text;
+update title_instance set ti_gokb_id = ' ' where ti_gokb_id is null;
+alter table title_institution_provider drop constraint fk89a2e01f47b4bd3f;
+alter table title_institution_provider alter column tttnp_title set data type text;
+update title_institution_provider set tttnp_title = title_instance.ti_gokb_id from title_instance where tttnp_title = title_instance.ti_id::text;
+-- throw down problem-causing tables
+DROP TABLE creator_title;
+DROP TABLE creator;
+DROP TABLE global_record_tracker;
+DROP TABLE global_record_info;
+DROP TABLE org_title_stats;
+DROP TABLE platformtipp;
+DROP TABLE title_history_event_participant;
+DROP TABLE title_history_event;
+DROP TABLE tippcoverage;
+DROP TABLE title_instance_package_platform;
+DROP TABLE title_instance;
+DROP TABLE package;

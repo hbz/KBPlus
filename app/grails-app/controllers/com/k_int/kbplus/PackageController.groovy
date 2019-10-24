@@ -71,7 +71,16 @@ class PackageController extends AbstractDebugController {
             params.sort = params.sort ?: 'name'
             params.order = params.order ?: 'asc'
 
-            result.records = gokbRecords ? gokbRecords.flatten().sort() : null
+            result.records = null
+            if(gokbRecords) {
+                Map filteredMap = [:]
+                gokbRecords.each { apiRes ->
+                    apiRes.each { rec ->
+                        filteredMap[rec.uuid] = rec
+                    }
+                }
+                result.records = filteredMap.values().toList().flatten()
+            }
 
             result.records?.sort { x, y ->
                 if (params.order == 'desc') {

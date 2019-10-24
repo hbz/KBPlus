@@ -96,9 +96,9 @@ class TitleController extends AbstractDebugController {
             }
         }
 
-        result.editable = SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')
+        //result.editable = SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')
 
-        log.debug(result)
+        //log.debug(result)
 
         result
     }
@@ -151,7 +151,7 @@ class TitleController extends AbstractDebugController {
             return
         }
 
-        result.duplicates = reusedIdentifiers(result.ti);
+        result.duplicates = reusedIdentifiers(result.ti)
         result.titleHistory = TitleHistoryEvent.executeQuery("select distinct thep.event from TitleHistoryEventParticipant as thep where thep.participant = ?", [result.ti] )
 
         result
