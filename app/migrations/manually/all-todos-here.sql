@@ -67,7 +67,7 @@ ALTER TABLE fact DROP COLUMN supplier_id;
 
 
 -- 2019-10-23
--- (ERMS-1808) purging of legacy GOKb copy tables
+-- (ERMS-1808) purging of legacy GOKb copy tables - DO NOT EXECUTE YET!
 -- relink
 ALTER TABLE doc_context DROP CONSTRAINT fk30eba9a871246d01;
 alter table doc_context alter column dc_pkg_fk set data type text;
