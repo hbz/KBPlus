@@ -855,10 +855,10 @@ class GlobalSourceSyncService extends AbstractLockableService {
                     announcement_content = "<p>${messageSource.getMessage('announcement.package.ChangeTitle', null, "Change Package Title on ", locale)}  ${contextObject.getURL() ? "<a href=\"${contextObject.getURL()}\">${ctx.name}</a>" : "${ctx.name}"} ${new Date().toString()}</p>"
                     announcement_content += "<p><ul><li>${messageSource.getMessage("announcement.package.TitleChange", [oldvalue, value] as Object[], "Package Title was change from {0} to {1}.", locale)}</li></ul></p>"
                     log.debug("updated pkg prop");
-                    break;
+                    break
                 default:
                     log.debug("Not updated pkg prop");
-                    break;
+                    break
             }
 
             if (auto_accept) {
@@ -1495,7 +1495,7 @@ class GlobalSourceSyncService extends AbstractLockableService {
             log.debug("Skip record - not KBPlus compliant");
         } else {
             titleinfo = titleinfo?.parsed_rec ?: titleinfo
-            def title_instance = TitleInstance.get(local_id)
+            def title_instance = TitleInstance.findByGokbId(title_uuid)
 
             if (title_instance == null) {
                 log.debug("Failed to resolve ${local_id} - Exiting");
@@ -1532,7 +1532,20 @@ class GlobalSourceSyncService extends AbstractLockableService {
                 log.debug("Checking title has ${it.namespace}:${it.value}")
                 title_instance.checkAndAddMissingIdentifier(it.namespace, it.value)
             }
-            title_instance.save();
+            List<IdentifierOccurrence> toDelete = []
+            title_instance.ids.each { idOcc ->
+                Identifier idVal = idOcc.identifier
+                def oldId = titleinfo.identifiers.find { it.namespace == idVal.ns.ns && it.value == idVal.value }
+                if(oldId)
+                    log.info("identifier ${idVal.value} found")
+                else {
+                    log.info("identifier ${idVal.value} not existing in new title record, deleting occurrence ...")
+                    toDelete << idOcc
+                }
+            }
+            title_instance.save()
+            if(toDelete)
+                IdentifierOccurrence.executeUpdate('delete from IdentifierOccurrence idOcc where idOcc in (:toDelete)',[toDelete:toDelete])
 
             if (titleinfo.publishers != null) {
                 titleinfo.publishers.each { pub ->

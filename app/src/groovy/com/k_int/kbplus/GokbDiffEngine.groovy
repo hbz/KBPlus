@@ -221,7 +221,7 @@ public class GokbDiffEngine {
                                 updatedTippClosure(ctx, tippnew, tippold, tipp_diff, auto_accept, db_tipp)
                             }
                             catch (Exception e) {
-                                System.err.println("Error on executing updated TIPP closure! Please verify logs: ${e.getMessage()}")
+                                System.err.println("Error on executing updated TIPP closure! Please verify logs: ${e}")
                             }
                         }
                     }

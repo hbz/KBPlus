@@ -157,7 +157,7 @@ class Platform extends AbstractBaseDomain {
       platform.save(flush:true)
     }
 
-    platform;
+    platform
   }
 
   Map<String, Object> getCalculatedPropDefGroups(Org contextOrg) {

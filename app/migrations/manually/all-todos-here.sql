@@ -53,6 +53,7 @@ ALTER TABLE org DROP COLUMN org_origin_edit_url;
 --  new column class in org_access_point is initially null
 -- need to set to  com.k_int.kbplus.OrgAccessPoint for all existing rows
 -- see pull request for Update access point management - ad7500ef0534c4b414e5e7cb0c9acc1acd4f8283"
+alter table org_access_point add class text;
 update org_access_point set class = 'com.k_int.kbplus.OrgAccessPoint' where class is null;
 
 

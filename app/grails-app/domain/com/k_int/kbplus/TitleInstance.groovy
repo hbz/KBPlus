@@ -238,7 +238,6 @@ class TitleInstance extends AbstractBaseDomain implements AuditableTrait {
   static TitleInstance lookupOrCreate(List candidate_identifiers, String title, boolean enrich, String titletyp, String imp_uuid, String status) {
     def result = null
     def origin_uri = null
-    String gokbUUID = null
     def skip_creation = false
     def valid_match = false
     List<TitleInstance> ti_candidates = []
@@ -259,9 +258,6 @@ class TitleInstance extends AbstractBaseDomain implements AuditableTrait {
     }
 
     if(!result){
-        TitleInstance ti_candidate = TitleInstance.findByGokbId(gokbUUID)
-        if(ti_candidate)
-            ti_candidates << ti_candidate
         candidate_identifiers.each { i ->
           if(i.namespace.toLowerCase() == 'uri'){
             origin_uri = i.value
@@ -304,7 +300,7 @@ class TitleInstance extends AbstractBaseDomain implements AuditableTrait {
         boolean origin_match = false
         boolean origin_uri_match = false
 
-        if(cti.gokbId == gokbUUID)
+        if(cti.gokbId == imp_uuid)
             origin_match = true
 
         cti.ids.each { ctio ->
