@@ -19,7 +19,6 @@ import de.laser.helper.*
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
-import groovy.sql.Sql
 import org.apache.commons.collections.BidiMap
 import org.apache.commons.collections.bidimap.DualHashBidiMap
 import org.apache.poi.POIXMLProperties
@@ -33,7 +32,6 @@ import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.mozilla.universalchardet.UniversalDetector
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import javax.servlet.ServletOutputStream
@@ -1678,12 +1676,17 @@ join sub.orgRelations or_sub where
             orderByClause = 'order by ti.sortTitle asc'
         }
 
-        String qryString = "select distinct ti from IssueEntitlement ie join ie.tipp tipp join tipp.title ti join ie.subscription sub join sub.orgRelations oo where ie.status != :deleted and oo.roleType in :orgRoles and oo.org = :institution "
+        String qryString = "select ie from IssueEntitlement ie join ie.tipp tipp join tipp.title ti join ie.subscription sub join sub.orgRelations oo where ie.status != :deleted and oo.roleType in :orgRoles and oo.org = :institution "
         if(queryFilter)
             qryString += ' and '+queryFilter.join(' and ')
         qryString += orderByClause
 
-        Set<TitleInstance> allTitles = TitleInstance.executeQuery(qryString,qryParams)
+        Set<IssueEntitlement> unfilteredIssueEntitlements = IssueEntitlement.executeQuery(qryString,qryParams)
+        Set<IssueEntitlement> currentIssueEntitlements
+        if(accessService.checkPerm("ORG_CONSORTIUM"))
+            currentIssueEntitlements = unfilteredIssueEntitlements.findAll { ie -> ie.subscription.instanceOf == null }
+        else currentIssueEntitlements = unfilteredIssueEntitlements
+        Set<TitleInstance> allTitles = currentIssueEntitlements.collect { IssueEntitlement ie -> ie.tipp.title }
         result.num_ti_rows = allTitles.size()
         result.titles = allTitles.drop(result.offset).take(result.max)
 
@@ -1694,15 +1697,28 @@ join sub.orgRelations or_sub where
 		result.benchMark = bm
 
         if(params.exportKBart) {
+            //Set<IssueEntitlement> currentIssueEntitlements = IssueEntitlement.executeQuery('select ie from IssueEntitlement ie join ie.tipp tipp join ie.subscription sub join tipp.title ti join sub.orgRelations oo ')
             response.setHeader("Content-disposition", "attachment; filename=${filename}.tsv")
             response.contentType = "text/tsv"
             ServletOutputStream out = response.outputStream
-            Map<String,List> tableData = exportService.generateTitleExportList(currentIssueEntitlements)
+            Map<String,List> tableData = exportService.generateTitleExportKBART(currentIssueEntitlements)
             out.withWriter { writer ->
                 writer.write(exportService.generateSeparatorTableString(tableData.titleRow,tableData.columnData,'\t'))
             }
             out.flush()
             out.close()
+        }
+        else if(params.exportXLSX) {
+            response.setHeader("Content-disposition", "attachment; filename=\"${filename}.xlsx\"")
+            response.contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            Map<String,List> export = exportService.generateTitleExportXLS(currentIssueEntitlements)
+            Map sheetData = [:]
+            sheetData[message(code:'menu.my.titles')] = [titleRow:export.titles,columnData:export.rows]
+            SXSSFWorkbook workbook = exportService.generateXLSXWorkbook(sheetData)
+            workbook.write(response.outputStream)
+            response.outputStream.flush()
+            response.outputStream.close()
+            workbook.dispose()
         }
         else {
             withFormat {
@@ -1713,8 +1729,12 @@ join sub.orgRelations or_sub where
                     response.setHeader("Content-disposition", "attachment; filename=${filename}.csv")
                     response.contentType = "text/csv"
 
-                    def out = response.outputStream
-                    exportService.StreamOutTitlesCSV(out, result.titles)
+                    ServletOutputStream out = response.outputStream
+                    Map<String,List> tableData = exportService.generateTitleExportKBART(currentIssueEntitlements)
+                    out.withWriter { writer ->
+                        writer.write(exportService.generateSeparatorTableString(tableData.titleRow,tableData.columnData,';'))
+                    }
+                    out.flush()
                     out.close()
                 }
                 /*json {
