@@ -2,6 +2,8 @@
 
 **Ticket    Date    Branch      Author  Feature/Bug     Description/Keywords**
 
+1142    20.04.2020  hbz-dev     Andreas Feature     Zentralisierung von KBART-Exporten sowie Einführung neuer Ausgabepunkte, Erweiterung des Titelexports, Ausgabe um neue Spalten erweitert
+
 2383    17.04.2020  rc1.3       Moe     Bug         Umfrage Export: Merkmale werden falsch sortiert bei Konsortialstelle
 
 2372    16.04.2020  rc1.3       Christian   Bug     Behandlung von verkürzten IPv6 Adressen fehlerhaft
