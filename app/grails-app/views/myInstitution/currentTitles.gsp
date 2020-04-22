@@ -146,20 +146,6 @@
                 </select>
             </div>
 
-
-        </div>
-
-        <div class="two fields">
-
-            <div class="field">
-                <label for="filterMultiIE">${message(code: 'myinst.currentTitles.dupes')}</label>
-
-                <div class="ui checkbox">
-                    <input type="checkbox" class="hidden" name="filterMultiIE" id="filterMultiIE"
-                           value="${true}" <%=(params.filterMultiIE) ? ' checked="true"' : ''%>/>
-                </div>
-            </div>
-
             <div class="field la-field-right-aligned">
                 <a href="${request.forwardURI}"
                    class="ui reset primary button">${message(code: 'default.button.reset.label')}</a>
@@ -167,7 +153,38 @@
                 <input type="submit" class="ui secondary button"
                        value="${message(code: 'default.button.filter.label')}"/>
             </div>
+
+            <%--<div class="field">
+                <label for="filterPvd">${message(code: 'default.all_other.platforms.label')}</label>
+                <select name="filterOtherPlat" multiple="" class="ui search selection fluid dropdown">
+                    <option <%= (filterOtherPlat.contains("all")) ? 'selected' : '' %>
+                            value="">${message(code: 'myinst.currentTitles.all_other_platforms')}</option>
+                    <g:each in="${otherplatforms}" var="op">
+
+                        <%
+                            def platId = op[0].id.toString()
+                            def platName = op[0].name
+                        %>
+                        <option <%=(filterOtherPlat.contains(platId)) ? 'selected' : ''%> value="${platId}"
+                                                                                          title="${platName}">
+                            ${platName}
+                        </option>
+                    </g:each>
+                </select>
+            </div>--%>
         </div>
+
+        <%--<div class="two fields">
+
+        <%-- class="field">
+            <label for="filterMultiIE">${message(code: 'myinst.currentTitles.dupes', default: 'Titles we subscribe to through 2 or more packages')}</label>
+
+            <div class="ui checkbox">
+                <input type="checkbox" class="hidden" name="filterMultiIE" id="filterMultiIE"
+                       value="${true}" <%=(params.filterMultiIE) ? ' checked="true"' : ''%>/>
+            </div>
+        </div>
+        </div>--%>
 
     </g:form>
 </semui:filter>

@@ -106,10 +106,19 @@
 
             <div class="four wide column">
 
-                <g:link onclick="addForAllSurveyCostItem([${(selectedSubParticipants?.id)}])"
-                        class="ui icon button right floated trigger-modal">
-                    <g:message code="surveyCostItems.createInitialCostItem"/>
-                </g:link>
+                <g:if test="${params.tab == 'selectedSubParticipants'}">
+                    <g:link onclick="addForAllSurveyCostItem([${(selectedSubParticipants?.id)}])"
+                            class="ui icon button right floated trigger-modal">
+                        <g:message code="surveyCostItems.createInitialCostItem"/>
+                    </g:link>
+                </g:if>
+
+                <g:if test="${params.tab == 'selectedParticipants'}">
+                    <g:link onclick="addForAllSurveyCostItem([${(selectedParticipants?.id)}])"
+                            class="ui icon button right floated trigger-modal">
+                        <g:message code="surveyCostItems.createInitialCostItem"/>
+                    </g:link>
+                </g:if>
             </div>
 
             <br>
@@ -117,10 +126,10 @@
 
             <semui:filter>
             <g:form action="surveyCostItems" method="post" class="ui form"
-            params="[id: surveyInfo.id, surveyConfigID: params.surveyConfigID, tab: 'selectedSubParticipants']">
+            params="[id: surveyInfo.id, surveyConfigID: params.surveyConfigID, tab: params.tab]">
             <g:render template="/templates/filter/orgFilter"
             model="[
-                              tmplConfigShow      : [['name', 'libraryType'], ['federalState', 'libraryNetwork', 'property'], ['customerType']],
+                              tmplConfigShow      : [['name', 'libraryType'], ['federalState', 'libraryNetwork', 'property']],
                               tmplConfigFormFilter: true,
                               useNewLayouter      : true
                       ]"/>

@@ -2,7 +2,25 @@
 
 **Ticket    Date    Branch      Author  Feature/Bug     Description/Keywords**
 
-1142    20.04.2020  hbz-dev     Andreas Feature     Zentralisierung von KBART-Exporten sowie Einführung neuer Ausgabepunkte, Erweiterung des Titelexports, Ausgabe um neue Spalten erweitert
+1901    22.04.2020  rc1.3       Andreas Bug         Syncfehler korrigiert - Paketeigenschaften korrekt verarbeitet und Dubletten von Anbieterrollen entfernt
+
+2417    22.04.2020  rc1.3       David   Bug         API 0.93 - /package und /subscription werfen Fehler
+
+(2345)  21.04.2020  rc1.3       Andreas Bug         Abfrage zur Massenermittlung von Bestandstitel korrigiert
+
+1142    20.04.2020  rc1.3       Andreas Feature     Zentralisierung von KBART-Exporten sowie Einführung neuer Ausgabepunkte, Erweiterung des Titelexports, Ausgabe um neue Spalten erweitert
+
+2406    20.04.2020  rc1.3       Moe     Feature     Hotfixkandidat: Verbindlichkeit einer Umfrage durch
+
+2404    20.04.2020  rc1.3       Moe     Feature     Umfragekosten auch für normale Lizenzumfrage
+
+2362    20.04.2020  rc1.3       David   Feature     Aufräumen der Identifikatoren-Namensräume inid_
+
+2402    20.04.2020  rc1.3       Andreas Bug         Paketeigenschaften in Pending Changes wurden nicht korrekt verarbeitet
+
+2395    20.04.2020  rc1.3       David   Feature     API 0.91: Umbau der Status-Verarbeitung
+
+2399    17.04.2020  rc1.3       Andreas Bug         Plattform-Primary-URL und Anbieter wurden nicht aus der GOKb übernommen
 
 2383    17.04.2020  rc1.3       Moe     Bug         Umfrage Export: Merkmale werden falsch sortiert bei Konsortialstelle
 
