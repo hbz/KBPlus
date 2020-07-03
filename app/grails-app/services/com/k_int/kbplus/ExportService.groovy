@@ -1,7 +1,6 @@
 package com.k_int.kbplus
 
-import com.k_int.kbplus.abstract_domain.CustomProperty
-import com.k_int.kbplus.abstract_domain.PrivateProperty
+import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
 import com.k_int.properties.PropertyDefinition
 import de.laser.base.AbstractCoverage
 import de.laser.IssueEntitlementCoverage
@@ -20,7 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFDataFormat
 import org.apache.poi.xssf.usermodel.XSSFFont
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.springframework.context.MessageSource
+
 import java.awt.*
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -194,17 +193,9 @@ class ExportService {
 	List processPropertyListValues(Set<PropertyDefinition> propertyDefinitions, String format, def target) {
 		List cells = []
 		SimpleDateFormat sdf = DateUtil.getSimpleDateFormatByToken('default.date.format.notime')
-		propertyDefinitions.each { pd ->
+		propertyDefinitions.each { PropertyDefinition pd ->
 			def value = ''
-			target.customProperties.each{ CustomProperty prop ->
-				if(prop.type.descr == pd.descr && prop.type == pd && prop.value) {
-					if(prop.refValue)
-						value = prop.refValue.getI10n('value')
-					else
-						value = prop.getValue() ?: ' '
-				}
-			}
-			target.privateProperties.each{ PrivateProperty prop ->
+			target.propertySet.each{ AbstractPropertyWithCalculatedLastUpdated prop ->
 				if(prop.type.descr == pd.descr && prop.type == pd && prop.value) {
 					if(prop.refValue)
 						value = prop.refValue.getI10n('value')

@@ -204,7 +204,7 @@ class ApiWriterHelper {
                     )
                 }
                 else if (owner instanceof Person) {
-                    property = new PersonPrivateProperty(
+                    property = new PersonProperty(
                             owner:  owner,
                             tenant: contextOrg,
                             note:   it.note
@@ -234,13 +234,13 @@ class ApiWriterHelper {
             // Custom Property
             else {
                 if (owner instanceof Org) {
-                    property = new OrgCustomProperty(
+                    property = new OrgProperty(
                             owner: owner,
                             note:  it.note
                     )
                 }
                 else if (owner instanceof License) {
-                    property = new LicenseCustomProperty(
+                    property = new LicenseProperty(
                             owner:     owner,
                             note:      it.note,
                             paragraph: it.paragraph

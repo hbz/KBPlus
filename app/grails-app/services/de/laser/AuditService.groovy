@@ -1,11 +1,11 @@
 package de.laser
 
 import com.k_int.kbplus.License
-import com.k_int.kbplus.LicenseCustomProperty
+import com.k_int.kbplus.LicenseProperty
 import com.k_int.kbplus.RefdataValue
 import com.k_int.kbplus.Subscription
-import com.k_int.kbplus.SubscriptionCustomProperty
-import com.k_int.kbplus.abstract_domain.CustomProperty
+import com.k_int.kbplus.SubscriptionProperty
+import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
 import de.laser.interfaces.AuditableSupport
 import org.codehaus.groovy.grails.commons.GrailsApplication
 
@@ -53,7 +53,7 @@ class AuditService {
 
             String oid = "${obj.class.name}:${obj.id}"
 
-            if (obj instanceof SubscriptionCustomProperty) {
+            if (obj instanceof SubscriptionProperty) {
 
                 Map<String, Object> changeDoc = [
                         OID  : oid,
@@ -65,7 +65,7 @@ class AuditService {
                 ]
                 changeNotificationService.fireEvent(changeDoc)
             }
-            else if (obj instanceof LicenseCustomProperty) {
+            else if (obj instanceof LicenseProperty) {
 
                 Map<String, Object> changeDoc = [ OID: oid,
                         event:'LicenseCustomProperty.deleted',
@@ -105,7 +105,7 @@ class AuditService {
 
                         log.debug("notifyChangeEvent() " + obj + " : " + clazz)
 
-                        if (obj instanceof CustomProperty) {
+                        if (obj instanceof AbstractPropertyWithCalculatedLastUpdated && obj.isPublic) {
 
                             if (getAuditConfig(obj)) {
 

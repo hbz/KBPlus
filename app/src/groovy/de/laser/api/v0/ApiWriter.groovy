@@ -48,7 +48,7 @@ class ApiWriter {
 
                 // References
                 def properties            = ApiWriterHelper.getProperties(data.properties, license, context)
-                license.customProperties  = properties['custom']
+                license.propertySet  = properties['custom']
                 license.privateProperties = properties['private']
 
                 // not supported: license.documents

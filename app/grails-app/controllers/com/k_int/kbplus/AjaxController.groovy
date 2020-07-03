@@ -664,20 +664,20 @@ class AjaxController {
                         case 'currentProviders':
                         case 'manageMembers': values = OrgPrivateProperty.findAllByType(propDef)
                             break
-                        case 'addressbook': values = PersonPrivateProperty.findAllByType(propDef)
+                        case 'addressbook': values = PersonProperty.findAllByType(propDef)
                             break
                     }
                 }
                 else {
                     switch(params.domain) {
                         case 'currentSubscriptions':
-                        case 'manageConsortiaSubscriptions': values = SubscriptionCustomProperty.executeQuery('select scp from SubscriptionCustomProperty scp join scp.owner s join s.orgRelations oo where scp.type = :propDef and oo.org = :tenant',[propDef:propDef,tenant:contextService.org])
+                        case 'manageConsortiaSubscriptions': values = SubscriptionProperty.executeQuery('select scp from SubscriptionProperty scp join scp.owner s join s.orgRelations oo where scp.type = :propDef and oo.org = :tenant',[propDef:propDef, tenant:contextService.org])
                             break
-                        case 'currentLicenses': values = LicenseCustomProperty.executeQuery('select lcp from LicenseCustomProperty lcp join lcp.owner l join l.orgLinks oo where lcp.type = :propDef and oo.org = :tenant',[propDef:propDef,tenant:contextService.org])
+                        case 'currentLicenses': values = LicenseProperty.executeQuery('select lcp from LicenseProperty lcp join lcp.owner l join l.orgLinks oo where lcp.type = :propDef and oo.org = :tenant',[propDef:propDef, tenant:contextService.org])
                             break
                         case 'listProvider':
                         case 'currentProviders':
-                        case 'manageMembers': values = OrgCustomProperty.executeQuery('select ocp from OrgCustomProperty ocp where ocp.type = :propDef',[propDef:propDef])
+                        case 'manageMembers': values = OrgProperty.executeQuery('select ocp from OrgProperty ocp where ocp.type = :propDef',[propDef:propDef])
                             break
                     }
                 }
@@ -1278,7 +1278,7 @@ class AjaxController {
 
             render(template: "/templates/properties/custom", model: [
                     ownobj: owner,
-                    customProperties: owner.customProperties,
+                    customProperties: owner.propertySet,
                     newProp: newProp,
                     error: error,
                     message: msg,
@@ -1295,7 +1295,7 @@ class AjaxController {
       def owner = grailsApplication.getArtefact("Domain", params.ownerClass.replace("class ", ""))?.getClazz()?.get(params.ownerId)
       def type = PropertyDefinition.get(params.propIdent.toLong())
 
-      def existingProp = owner.customProperties.find { it.type.name == type.name }
+      def existingProp = owner.propertySet.find { it.type.name == type.name }
 
       if (existingProp == null || type.multipleOccurrence) {
         newProp = PropertyDefinition.createGenericProperty(PropertyDefinition.CUSTOM_PROPERTY, owner, type)

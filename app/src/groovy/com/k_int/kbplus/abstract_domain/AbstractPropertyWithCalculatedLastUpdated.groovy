@@ -1,12 +1,11 @@
 package com.k_int.kbplus.abstract_domain
 
-
+import com.k_int.kbplus.Org
 import com.k_int.kbplus.RefdataValue
 import de.laser.helper.DateUtil
 import de.laser.interfaces.CalculatedLastUpdated
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
-import org.springframework.beans.factory.annotation.Autowired
 
 import javax.persistence.Transient
 
@@ -25,14 +24,10 @@ abstract class AbstractPropertyWithCalculatedLastUpdated
     URL              urlValue
     String           note = ""
     Date             dateValue
+    boolean          isPublic = false
+    Org              tenant
 
     Date lastUpdatedCascading
-
-    static mapping = {
-        stringValue  type: 'text'
-        note         type: 'text'
-        lastUpdatedCascading column: 'last_updated_cascading'
-    }
 
     static constraints = {
         stringValue (nullable: true)
@@ -42,6 +37,7 @@ abstract class AbstractPropertyWithCalculatedLastUpdated
         urlValue    (nullable: true)
         note        (nullable: true)
         dateValue   (nullable: true)
+        tenant      (nullable: true, blank: false)
         lastUpdatedCascading (nullable: true, blank: false)
     }
 

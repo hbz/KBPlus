@@ -53,7 +53,7 @@ class DeletionService {
         List packages       = new ArrayList(lic.pkgs)  // Package
         List pendingChanges = new ArrayList(lic.pendingChanges)
         List privateProps   = new ArrayList(lic.privateProperties)
-        List customProps    = new ArrayList(lic.customProperties)
+        List customProps    = new ArrayList(lic.propertySet)
 
         // collecting informations
 
@@ -75,7 +75,7 @@ class DeletionService {
         result.info << ['Pakete', packages]
         result.info << ['Anstehende Änderungen', pendingChanges]
         result.info << ['Private Merkmale', lic.privateProperties]
-        result.info << ['Allgemeine Merkmale', lic.customProperties]
+        result.info << ['Allgemeine Merkmale', lic.propertySet]
 
         // checking constraints and/or processing
 
@@ -120,7 +120,7 @@ class DeletionService {
                     }
                     // custom properties
                     customProps.each{ tmp ->
-                        List changeList = LicenseCustomProperty.findAllByInstanceOf(tmp)
+                        List changeList = LicenseProperty.findAllByInstanceOf(tmp)
                         changeList.each { tmp2 ->
                             tmp2.instanceOf = null
                             tmp2.save(flush:true)
@@ -177,7 +177,7 @@ class DeletionService {
                     privateProps.each { tmp -> tmp.delete() }
 
                     // custom properties
-                    lic.customProperties.clear()
+                    lic.propertySet.clear()
                     /*customProps.each { tmp -> // incomprehensible fix
                         tmp.owner = null
                         tmp.save()
@@ -307,7 +307,7 @@ class DeletionService {
                     }
                     // custom properties
                     customProps.each{ tmp ->
-                        List changeList = SubscriptionCustomProperty.findAllByInstanceOf(tmp)
+                        List changeList = SubscriptionProperty.findAllByInstanceOf(tmp)
                         changeList.each { tmp2 ->
                             tmp2.instanceOf = null
                             tmp2.save()

@@ -2335,7 +2335,7 @@ AND EXISTS (
             if(result.surveyConfig.subSurveyUseForTransfer) {
                 result.successorSubscription = result.surveyConfig.subscription.getCalculatedSuccessor()
 
-                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.customProperties + result.successorSubscription.customProperties, true, true) : null
+                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.propertySet + result.successorSubscription.customProperties, true, true) : null
             }
 
         }

@@ -2,8 +2,6 @@ package de.laser
 
 import com.k_int.kbplus.*
 import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
-import com.k_int.kbplus.abstract_domain.CustomProperty
-import com.k_int.kbplus.abstract_domain.PrivateProperty
 import com.k_int.kbplus.auth.Role
 import com.k_int.kbplus.auth.User
 import com.k_int.properties.PropertyDefinition
@@ -1031,20 +1029,21 @@ class SubscriptionService {
                     if (subMember.customProperties) {
                         //customProperties
                         for (prop in subMember.customProperties) {
-                            def copiedProp = new SubscriptionCustomProperty(type: prop.type, owner: newSubscription)
+                            def copiedProp = new SubscriptionProperty(type: prop.type, owner: newSubscription)
                             copiedProp = prop.copyInto(copiedProp)
                             copiedProp.save()
                             //newSubscription.addToCustomProperties(copiedProp) // ERROR Hibernate: Found two representations of same collection
                         }
                     }
-                    if (subMember.privateProperties) {
+                    //TODO include custom properties
+                    if (subMember.propertySet) {
                         //privatProperties
                         List tenantOrgs = OrgRole.executeQuery('select o.org from OrgRole as o where o.sub = :sub and o.roleType in (:roleType)', [sub: subMember, roleType: [RDStore.OR_SUBSCRIBER_CONS, RDStore.OR_SUBSCRIPTION_CONSORTIA]]).collect {
                             it -> it.id
                         }
-                        subMember.privateProperties?.each { prop ->
+                        subMember.propertySet.each { SubscriptionProperty prop ->
                             if (tenantOrgs.indexOf(prop.type?.tenant?.id) > -1) {
-                                def copiedProp = new SubscriptionPrivateProperty(type: prop.type, owner: newSubscription)
+                                def copiedProp = new SubscriptionProperty(type: prop.type, owner: newSubscription, isPublic: prop.isPublic)
                                 copiedProp = prop.copyInto(copiedProp)
                                 copiedProp.save()
                                 //newSubscription.addToPrivateProperties(copiedProp)  // ERROR Hibernate: Found two representations of same collection
@@ -1272,26 +1271,22 @@ class SubscriptionService {
         def targetProp
 
 
-        properties?.each { sourceProp ->
-            if (sourceProp instanceof CustomProperty) {
+        properties.each { sourceProp ->
+            if (sourceProp.isPublic) {
                 targetProp = targetSub.customProperties.find { it.typeId == sourceProp.typeId }
             }
-            if (sourceProp instanceof PrivateProperty && sourceProp.type?.tenant?.id == contextOrg?.id) {
+            if (!sourceProp.isPublic && sourceProp.type?.tenant?.id == contextOrg?.id) {
                 targetProp = targetSub.privateProperties.find { it.typeId == sourceProp.typeId }
             }
             boolean isAddNewProp = sourceProp.type?.multipleOccurrence
             if ( (! targetProp) || isAddNewProp) {
-                if (sourceProp instanceof CustomProperty) {
-                    targetProp = new SubscriptionCustomProperty(type: sourceProp.type, owner: targetSub)
-                } else {
-                    targetProp = new SubscriptionPrivateProperty(type: sourceProp.type, owner: targetSub)
-                }
+                targetProp = new SubscriptionProperty(type: sourceProp.type, owner: targetSub, isPublic: sourceProp.isPublic)
                 targetProp = sourceProp.copyInto(targetProp)
                 save(targetProp, flash)
-                if (((sourceProp.id.toString() in auditProperties)) && targetProp instanceof CustomProperty) {
+                if (((sourceProp.id.toString() in auditProperties)) && targetProp.isPublic) {
                     //copy audit
                     if (!AuditConfig.getConfig(targetProp, AuditConfig.COMPLETE_OBJECT)) {
-                        def auditConfigs = AuditConfig.findAllByReferenceClassAndReferenceId(SubscriptionCustomProperty.class.name, sourceProp.id)
+                        def auditConfigs = AuditConfig.findAllByReferenceClassAndReferenceId(SubscriptionProperty.class.name, sourceProp.id)
                         auditConfigs.each {
                             AuditConfig ac ->
                                 //All ReferenceFields were copied!
@@ -1316,7 +1311,7 @@ class SubscriptionService {
                 AuditConfig.removeAllConfigs(prop)
             }
         }
-        int anzCP = SubscriptionCustomProperty.executeUpdate("delete from SubscriptionCustomProperty p where p in (:properties)",[properties: properties])
+        int anzCP = SubscriptionProperty.executeUpdate("delete from SubscriptionProperty p where p in (:properties)",[properties: properties])
         int anzPP = SubscriptionPrivateProperty.executeUpdate("delete from SubscriptionPrivateProperty p where p in (:properties)",[properties: properties])
     }
 

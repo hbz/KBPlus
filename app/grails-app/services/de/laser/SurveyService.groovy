@@ -2,8 +2,6 @@ package de.laser
 
 import com.k_int.kbplus.*
 import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
-import com.k_int.kbplus.abstract_domain.CustomProperty
-import com.k_int.kbplus.abstract_domain.PrivateProperty
 import com.k_int.kbplus.auth.User
 import com.k_int.kbplus.auth.UserOrg
 import com.k_int.properties.PropertyDefinition
@@ -13,7 +11,6 @@ import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import grails.util.Holders
 import org.codehaus.groovy.grails.commons.GrailsApplication
-import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 
 import java.text.SimpleDateFormat
@@ -146,26 +143,22 @@ class SurveyService {
         def targetProp
 
 
-        properties?.each { sourceProp ->
-            if (sourceProp instanceof CustomProperty) {
+        properties.each { AbstractPropertyWithCalculatedLastUpdated sourceProp ->
+            if (sourceProp.isPublic) {
                 targetProp = targetSub.customProperties.find { it.typeId == sourceProp.typeId }
             }
-            if (sourceProp instanceof PrivateProperty && sourceProp.type?.tenant?.id == contextOrg?.id) {
+            if (!sourceProp.isPublic && sourceProp.type?.tenant?.id == contextOrg?.id) {
                 targetProp = targetSub.privateProperties.find { it.typeId == sourceProp.typeId }
             }
             boolean isAddNewProp = sourceProp.type?.multipleOccurrence
             if ((!targetProp) || isAddNewProp) {
-                if (sourceProp instanceof CustomProperty) {
-                    targetProp = new SubscriptionCustomProperty(type: sourceProp.type, owner: targetSub)
-                } else {
-                    targetProp = new SubscriptionPrivateProperty(type: sourceProp.type, owner: targetSub)
-                }
+                targetProp = new SubscriptionProperty(type: sourceProp.type, owner: targetSub, isPublic: sourceProp.isPublic)
                 targetProp = sourceProp.copyInto(targetProp)
                 save(targetProp, flash)
-                if ((sourceProp.id.toString() in auditProperties) && targetProp instanceof CustomProperty) {
+                if ((sourceProp.id.toString() in auditProperties) && targetProp.isPublic) {
                     //copy audit
                     if (!AuditConfig.getConfig(targetProp, AuditConfig.COMPLETE_OBJECT)) {
-                        def auditConfigs = AuditConfig.findAllByReferenceClassAndReferenceId(SubscriptionCustomProperty.class.name, sourceProp.id)
+                        def auditConfigs = AuditConfig.findAllByReferenceClassAndReferenceId(SubscriptionProperty.class.name, sourceProp.id)
                         auditConfigs.each {
                             AuditConfig ac ->
                                 //All ReferenceFields were copied!
@@ -191,7 +184,7 @@ class SurveyService {
             AuditConfig.removeAllConfigs(prop)
         }
 
-        int anzCP = SubscriptionCustomProperty.executeUpdate("delete from SubscriptionCustomProperty p where p in (:properties)", [properties: properties])
+        int anzCP = SubscriptionProperty.executeUpdate("delete from SubscriptionProperty p where p in (:properties)", [properties: properties])
         int anzPP = SubscriptionPrivateProperty.executeUpdate("delete from SubscriptionPrivateProperty p where p in (:properties)", [properties: properties])
     }
 

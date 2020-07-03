@@ -697,7 +697,7 @@ class SurveyController {
             if(result.surveyConfig.subSurveyUseForTransfer) {
                 result.successorSubscription = result.surveyConfig.subscription.getCalculatedSuccessor()
 
-                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.customProperties + result.successorSubscription.customProperties, true, true) : null
+                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.propertySet + result.successorSubscription.customProperties, true, true) : null
             }
 
 
@@ -1566,7 +1566,7 @@ class SurveyController {
             if(result.surveyConfig.subSurveyUseForTransfer) {
                 result.successorSubscription = result.surveyConfig.subscription.getCalculatedSuccessor()
 
-                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.customProperties + result.successorSubscription.customProperties, true, true) : null
+                result.customProperties = result.successorSubscription ? comparisonService.comparePropertiesWithAudit(result.surveyConfig.subscription.propertySet + result.successorSubscription.customProperties, true, true) : null
             }
         }
 
@@ -2496,7 +2496,7 @@ class SurveyController {
                 if (surveyResult.participant.id in currentParticipantIDs && surveyResult.sub) {
 
                     if (property.type == 'class com.k_int.kbplus.RefdataValue') {
-                        if (surveyResult.sub.customProperties.find {
+                        if (surveyResult.sub.propertySet.find {
                             it.type.id == property.id
                         }.refValue == RefdataValue.getByValueAndCategory('Yes', property.refdataCategory)) {
 
@@ -4359,7 +4359,7 @@ class SurveyController {
 
                         }
 
-                        SubscriptionCustomProperty.findAllByOwner(newParentSub).each { scp ->
+                        SubscriptionProperty.findAllByOwner(newParentSub).each { scp ->
                             AuditConfig ac = AuditConfig.getConfig(scp)
 
                             if (ac) {

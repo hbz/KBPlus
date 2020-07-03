@@ -1,18 +1,14 @@
 package com.k_int.kbplus
 
 import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
-import com.k_int.kbplus.abstract_domain.PrivateProperty
+import PrivateProperty
 import com.k_int.properties.PropertyDefinition
 
-import javax.persistence.Transient
-
-class SubscriptionPrivateProperty extends PrivateProperty {
-
-    @Transient
-    def deletionService
+/**Org private properties are used to store Org related settings and options only for specific memberships**/
+class OrgPrivateProperty extends PrivateProperty {
 
     PropertyDefinition type
-    Subscription owner
+    Org owner
 
     Date dateCreated
     Date lastUpdated
@@ -20,19 +16,14 @@ class SubscriptionPrivateProperty extends PrivateProperty {
     static mapping = {
         includes AbstractPropertyWithCalculatedLastUpdated.mapping
 
-        id      column:'spp_id'
-        version column:'spp_version'
-        type    column:'spp_type_fk'
-        owner   column:'spp_owner_fk', index:'spp_owner_idx'
+        id      column:'opp_id'
+        version column:'opp_version'
+        type    column:'opp_type_fk'
+        owner   column:'opp_owner_fk', index:'opp_owner_idx'
 
-        dateCreated column: 'spp_date_created'
-        lastUpdated column: 'spp_last_updated'
+        dateCreated column: 'opp_date_created'
+        lastUpdated column: 'opp_last_updated'
     }
-
-    static belongsTo = [
-            type:  PropertyDefinition,
-            owner: Subscription
-    ]
 
     static constraints = {
         importFrom AbstractPropertyWithCalculatedLastUpdated
@@ -45,11 +36,14 @@ class SubscriptionPrivateProperty extends PrivateProperty {
         dateCreated (nullable: true, blank: false)
     }
 
+    static belongsTo = [
+        type:   PropertyDefinition,
+        owner:  Org
+    ]
+
     @Override
     def afterDelete() {
         super.afterDeleteHandler()
-
-        deletionService.deleteDocumentFromIndex(this.getClass().getSimpleName().toLowerCase()+":"+this.id)
     }
     @Override
     def afterInsert() {

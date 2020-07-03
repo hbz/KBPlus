@@ -53,7 +53,7 @@ class Platform extends AbstractBaseWithCalculatedLastUpdated {
   static hasMany = [
       tipps: TitleInstancePackagePlatform,
       oapp: OrgAccessPointLink,
-      customProperties:   PlatformCustomProperty,
+      propertySet:   PlatformProperty,
   ]
 
   static mapping = {
@@ -74,7 +74,7 @@ class Platform extends AbstractBaseWithCalculatedLastUpdated {
     lastUpdatedCascading column: 'plat_last_updated_cascading'
              tipps sort: 'title.title', order: 'asc', batchSize: 10
             oapp batchSize: 10
-    customProperties sort:'type', order:'desc', batchSize: 10
+    propertySet sort:'type', order:'desc', batchSize: 10
   }
 
   static constraints = {

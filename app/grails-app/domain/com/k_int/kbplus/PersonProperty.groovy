@@ -1,11 +1,10 @@
 package com.k_int.kbplus
 
 import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
-import com.k_int.kbplus.abstract_domain.PrivateProperty
 import com.k_int.properties.PropertyDefinition
 
 /**Person private properties are used to store Person related settings and options only for specific memberships**/
-class PersonPrivateProperty extends PrivateProperty {
+class PersonProperty extends AbstractPropertyWithCalculatedLastUpdated {
 
     PropertyDefinition type
     Person owner
@@ -14,24 +13,26 @@ class PersonPrivateProperty extends PrivateProperty {
     Date lastUpdated
 
     static mapping = {
-        includes AbstractPropertyWithCalculatedLastUpdated.mapping
-
-        id      column:'ppp_id'
-        version column:'ppp_version'
-        type    column:'ppp_type_fk'
-        owner   column:'ppp_owner_fk', index:'ppp_owner_idx'
-        
-        dateCreated column: 'ppp_date_created'
-        lastUpdated column: 'ppp_last_updated'
-        
+        id      column:'pp_id'
+        version column:'pp_version'
+        stringValue column: 'pp_string_value', type: 'text'
+        intValue    column: 'pp_int_value'
+        decValue    column: 'pp_dec_value'
+        refValue    column: 'pp_ref_value'
+        urlValue    column: 'pp_url_value'
+        note        column: 'pp_note', type: 'text'
+        dateValue   column: 'pp_date_value'
+        isPublic    column: 'pp_is_public'
+        tenant      column: 'pp_tenant_fk', index:'pp_tenant_idx'
+        type        column:'pp_type_fk'
+        owner       column:'pp_owner_fk', index:'pp_owner_idx'
+        lastUpdatedCascading column: 'pp_last_updated_cascading'
+        dateCreated column: 'pp_date_created'
+        lastUpdated column: 'pp_last_updated'
     }
 
     static constraints = {
         importFrom AbstractPropertyWithCalculatedLastUpdated
-
-        type    (nullable:false, blank:false)
-        owner   (nullable:false, blank:false)
-
         // Nullable is true, because values are already in the database
         lastUpdated (nullable: true, blank: false)
         dateCreated (nullable: true, blank: false)

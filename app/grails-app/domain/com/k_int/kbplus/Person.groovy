@@ -71,7 +71,7 @@ class Person extends AbstractBaseWithCalculatedLastUpdated {
         roleLinks: PersonRole,
         addresses: Address,
         contacts:  Contact,
-        privateProperties: PersonPrivateProperty
+        privateProperties: PersonProperty
     ]
     
     static constraints = {

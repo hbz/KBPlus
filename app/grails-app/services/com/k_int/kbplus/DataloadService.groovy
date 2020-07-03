@@ -675,7 +675,7 @@ class DataloadService {
             result
         }
 
-        updateES(com.k_int.kbplus.SubscriptionCustomProperty.class) { subCustProp ->
+        updateES(SubscriptionProperty.class) { subCustProp ->
             def result = [:]
 
             result._id = subCustProp.getClass().getSimpleName().toLowerCase()+":"+subCustProp.id
@@ -739,7 +739,7 @@ class DataloadService {
             result
         }
 
-        updateES(com.k_int.kbplus.SubscriptionPrivateProperty.class) { subPrivProp ->
+        updateES(SubscriptionPrivateProperty.class) { subPrivProp ->
             def result = [:]
 
             result._id = subPrivProp.getClass().getSimpleName().toLowerCase()+":"+subPrivProp.id
@@ -785,7 +785,7 @@ class DataloadService {
             result
         }
 
-        updateES(com.k_int.kbplus.LicenseCustomProperty.class) { licCustProp ->
+        updateES(LicenseProperty.class) { licCustProp ->
             def result = [:]
 
             result._id = licCustProp.getClass().getSimpleName().toLowerCase()+":"+licCustProp.id
@@ -840,7 +840,7 @@ class DataloadService {
             result
         }
 
-        updateES( com.k_int.kbplus.LicensePrivateProperty.class) { licPrivProp ->
+        updateES( LicensePrivateProperty.class) { licPrivProp ->
             def result = [:]
 
             result._id = licPrivProp.getClass().getSimpleName().toLowerCase()+":"+licPrivProp.id

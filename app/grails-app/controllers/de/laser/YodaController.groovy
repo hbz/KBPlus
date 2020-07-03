@@ -763,8 +763,8 @@ class YodaController {
     def migrateNatStatSettings() {
         Map<String, Object> result = [:]
 
-        List<OrgCustomProperty> ocpList = OrgCustomProperty.executeQuery(
-                'select ocp from OrgCustomProperty ocp join ocp.type pd where pd.descr = :orgConf', [
+        List<OrgProperty> ocpList = OrgProperty.executeQuery(
+                'select ocp from OrgProperty ocp join ocp.type pd where pd.descr = :orgConf', [
                 orgConf: PropertyDefinition.ORG_CONF
         ])
 
@@ -791,7 +791,7 @@ class YodaController {
             }
         }
 
-        OrgCustomProperty.executeQuery(
+        OrgProperty.executeQuery(
                 'select ocp from OrgCustomProperty ocp join ocp.type pd where pd.descr = :orgConf '
                 + 'and ( pd.name = \'API Key\' or pd.name = \'RequestorID\' )',
                 [orgConf: PropertyDefinition.ORG_CONF]
@@ -1685,7 +1685,7 @@ class YodaController {
                         "AND (pp.paragraph IS null OR pp.paragraph = '') "
         )
 
-        def ppp = PersonPrivateProperty.executeQuery(
+        def ppp = PersonProperty.executeQuery(
                 "SELECT pp FROM PersonPrivateProperty pp JOIN pp.type pd WHERE pd.mandatory = true " +
                         "AND pp.stringValue IS null AND pp.intValue IS null AND pp.decValue IS null " +
                         "AND pp.refValue IS null AND pp.urlValue IS null AND pp.dateValue IS null " +
@@ -1716,7 +1716,7 @@ class YodaController {
 
             println ppp.collect{ it.id }
             if (ppp.size() > 0) {
-                PersonPrivateProperty.executeUpdate('DELETE FROM PersonPrivateProperty ppp WHERE ppp.id in :idList',
+                PersonProperty.executeUpdate('DELETE FROM PersonProperty ppp WHERE ppp.id in :idList',
                         [idList: ppp.collect { it.id }]
                 )
             }

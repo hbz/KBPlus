@@ -654,7 +654,7 @@ class LicenseController
 
         // postgresql migration
         String subQuery = 'select cast(lp.id as string) from LicenseCustomProperty as lp where lp.owner = :owner'
-        def subQueryResult = LicenseCustomProperty.executeQuery(subQuery, [owner: result.license])
+        def subQueryResult = LicenseProperty.executeQuery(subQuery, [owner: result.license])
 
         //def qry_params = [licClass:result.license.class.name, prop:LicenseCustomProperty.class.name,owner:result.license, licId:"${result.license.id}"]
         //result.historyLines = AuditLogEvent.executeQuery("select e from AuditLogEvent as e where (( className=:licClass and persistedObjectId=:licId ) or (className = :prop and persistedObjectId in (select lp.id from LicenseCustomProperty as lp where lp.owner=:owner))) order by e.dateCreated desc", qry_params, [max:result.max, offset:result.offset]);
@@ -665,7 +665,7 @@ class LicenseController
         // postgresql migration
         if (subQueryResult) {
             base_query += ' or (className = :prop and persistedObjectId in (:subQueryResult)) ) order by e.dateCreated desc'
-            query_params.'prop' = LicenseCustomProperty.class.name
+            query_params.'prop' = LicenseProperty.class.name
             query_params.'subQueryResult' = subQueryResult
         }
         else {
@@ -680,7 +680,7 @@ class LicenseController
     
     result.historyLines?.each{
       if(it.className == query_params.prop ){
-        def propertyName = LicenseCustomProperty.executeQuery(propertyNameHql,[it.persistedObjectId.toLong()])[0]
+        def propertyName = LicenseProperty.executeQuery(propertyNameHql,[it.persistedObjectId.toLong()])[0]
         it.propertyName = propertyName
       }
     }
@@ -1055,8 +1055,8 @@ class LicenseController
 
                     if(params.license.copyCustomProperties) {
                         //customProperties
-                        for (prop in baseLicense.customProperties) {
-                            LicenseCustomProperty copiedProp = new LicenseCustomProperty(type: prop.type, owner: licenseInstance)
+                        for (prop in baseLicense.propertySet) {
+                            LicenseProperty copiedProp = new LicenseProperty(type: prop.type, owner: licenseInstance)
                             copiedProp = prop.copyInto(copiedProp)
                             copiedProp.instanceOf = null
                             copiedProp.save(flush: true)

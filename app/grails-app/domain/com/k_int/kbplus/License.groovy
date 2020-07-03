@@ -96,8 +96,7 @@ class License extends AbstractBaseWithCalculatedLastUpdated
           prsLinks:     PersonRole,
           derivedLicenses:    License,
           pendingChanges:     PendingChange,
-          customProperties:   LicenseCustomProperty,
-          privateProperties:  LicensePrivateProperty
+          propertySet:   LicenseProperty
   ]
 
   static mappedBy = [
@@ -109,8 +108,7 @@ class License extends AbstractBaseWithCalculatedLastUpdated
           prsLinks:      'lic',
           derivedLicenses: 'instanceOf',
           pendingChanges:  'license',
-          customProperties:  'owner',
-          privateProperties: 'owner'
+          propertySet: 'owner'
   ]
 
   static mapping = {
@@ -137,8 +135,7 @@ class License extends AbstractBaseWithCalculatedLastUpdated
                 endDate column: 'lic_end_date',     index: 'lic_dates_idx'
       lastUpdatedCascading column: 'lic_last_updated_cascading'
 
-       customProperties sort:'type', order:'desc', batchSize: 10
-      privateProperties sort:'type', order:'desc', batchSize: 10
+       propertySet sort:'type', order:'desc', batchSize: 10
          pendingChanges sort: 'ts', order: 'asc', batchSize: 10
 
               ids               batchSize: 10
@@ -761,7 +758,7 @@ class License extends AbstractBaseWithCalculatedLastUpdated
   
   @Transient
   def getCustomPropByName(name){
-    return customProperties.find{it.type.name == name}    
+    return this.propertySet.find{it.type.name == name}
   }
 
   static def refdataFind(params) {

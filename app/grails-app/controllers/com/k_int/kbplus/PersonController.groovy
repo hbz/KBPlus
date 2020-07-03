@@ -250,7 +250,7 @@ class PersonController extends AbstractDebugController {
         List<PropertyDefinition> mandatories = PropertyDefinition.getAllByDescrAndMandatoryAndTenant(PropertyDefinition.PRS_PROP, true, org)
 
         mandatories.each{ pd ->
-            if (! PersonPrivateProperty.findWhere(owner: personInstance, type: pd)) {
+            if (! PersonProperty.findWhere(owner: personInstance, type: pd)) {
                 def newProp = PropertyDefinition.createGenericProperty(PropertyDefinition.PRIVATE_PROPERTY, personInstance, pd)
 
                 if (newProp.hasErrors()) {

@@ -45,11 +45,17 @@ class SurveyResult extends AbstractPropertyWithCalculatedLastUpdated implements 
     }
 
     static mapping = {
-        includes AbstractPropertyWithCalculatedLastUpdated.mapping
-
         id column: 'surre_id'
         version column: 'surre_version'
-
+        stringValue column: 'surre_string_value', type: 'text'
+        intValue    column: 'surre_int_value'
+        decValue    column: 'surre_dec_value'
+        refValue    column: 'surre_ref_value'
+        urlValue    column: 'surre_url_value'
+        note        column: 'surre_note', type: 'text'
+        dateValue   column: 'surre_date_value'
+        isPublic    column: 'surre_is_public'
+        tenant      column: 'surre_tenant_fk', index:'surre_tenant_idx'
         dateCreated column: 'surre_date_created'
         lastUpdated column: 'surre_last_updated'
 

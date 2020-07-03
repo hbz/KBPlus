@@ -48,7 +48,7 @@ class InstitutionsService {
 
             if (option == InstitutionsService.CUSTOM_PROPERTIES_ONLY_INHERITED) {
 
-                LicenseCustomProperty.findAllByOwner(base).each { lcp ->
+                LicenseProperty.findAllByOwner(base).each { lcp ->
                     AuditConfig ac = AuditConfig.getConfig(lcp)
 
                     if (ac) {
@@ -87,8 +87,8 @@ class InstitutionsService {
             }
             else if (option == InstitutionsService.CUSTOM_PROPERTIES_COPY_HARD) {
 
-                for (prop in base.customProperties) {
-                    LicenseCustomProperty copiedProp = new LicenseCustomProperty(type: prop.type, owner: licenseInstance)
+                for (prop in base.propertySet) {
+                    LicenseProperty copiedProp = new LicenseProperty(type: prop.type, owner: licenseInstance)
                     copiedProp = prop.copyInto(copiedProp)
                     copiedProp.instanceOf = null
                     copiedProp.save()
@@ -173,8 +173,8 @@ class InstitutionsService {
             licenseInstance.startDate = baseLicense?.startDate
             licenseInstance.endDate = baseLicense?.endDate
         }
-        for (prop in baseLicense?.customProperties) {
-            def copiedProp = new LicenseCustomProperty(type: prop.type, owner: licenseInstance)
+        for (prop in baseLicense?.propertySet) {
+            def copiedProp = new LicenseProperty(type: prop.type, owner: licenseInstance)
             copiedProp = prop.copyInto(copiedProp)
             copiedProp.instanceOf = null
             copiedProp.save(flush: true)

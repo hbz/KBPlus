@@ -1584,7 +1584,7 @@ class SubscriptionController
                     org.isPublicForApi = subChild.isPublicForApi ? RDStore.YN_YES.getI10n("value") : RDStore.YN_NO.getI10n("value")
                     org.hasPerpetualAccess = subChild.hasPerpetualAccess ? RDStore.YN_YES.getI10n("value") : RDStore.YN_NO.getI10n("value")
                     org.status = subChild.status
-                    org.customProperties = subscr.customProperties
+                    org.customProperties = subscr.propertySet
                     org.privateProperties = subscr.privateProperties
                     Set generalContacts = []
                     if (publicContacts.get(subscr))
@@ -2053,7 +2053,7 @@ class SubscriptionController
                 break
         }*/
         //result.propList = PropertyDefinition.findAllPublicAndPrivateProp([PropertyDefinition.SUB_PROP], contextService.org)
-        result.propList = result.parentSub.privateProperties.type + result.parentSub.customProperties.type + SubscriptionCustomProperty.executeQuery("select distinct(scp.type) from SubscriptionCustomProperty scp where scp.owner in (:subscriptionSet)",[subscriptionSet:validSubChildren])
+        result.propList = result.parentSub.privateProperties.type + result.parentSub.customProperties.type + SubscriptionProperty.executeQuery("select distinct(scp.type) from SubscriptionProperty scp where scp.owner in (:subscriptionSet)",[subscriptionSet:validSubChildren])
 
         def oldID = params.id
         params.id = result.parentSub.id
@@ -2225,7 +2225,7 @@ class SubscriptionController
                         }
 
                         if (existingProp){
-                            SubscriptionCustomProperty customProp = SubscriptionCustomProperty.get(existingProp.id)
+                            SubscriptionProperty customProp = SubscriptionProperty.get(existingProp.id)
                             changeProperties++
                             def prop = setProperty(customProp, params.filterPropValue)
 
@@ -2444,7 +2444,7 @@ class SubscriptionController
 
 
                         if (existingProp && !(existingProp.hasProperty('instanceOf') && existingProp.instanceOf && AuditConfig.getConfig(existingProp.instanceOf))){
-                            SubscriptionCustomProperty customProp = SubscriptionCustomProperty.get(existingProp.id)
+                            SubscriptionProperty customProp = SubscriptionProperty.get(existingProp.id)
 
                             try {
                                 customProp?.owner = null
@@ -2644,7 +2644,7 @@ class SubscriptionController
 
                             synShareTargetList.add(memberSub)
 
-                            SubscriptionCustomProperty.findAllByOwner(result.subscriptionInstance).each { scp ->
+                            SubscriptionProperty.findAllByOwner(result.subscriptionInstance).each { scp ->
                                 AuditConfig ac = AuditConfig.getConfig(scp)
 
                                 if (ac) {
@@ -3851,7 +3851,7 @@ class SubscriptionController
                     log.debug('Found different content platforms for this subscription, cannot show usage')
                 } else {
                     def supplier_id = suppliers[0]
-                    def platform = PlatformCustomProperty.findByOwnerAndType(Platform.get(supplier_id), PropertyDefinition.getByNameAndDescr('NatStat Supplier ID', PropertyDefinition.PLA_PROP))
+                    def platform = PlatformProperty.findByOwnerAndType(Platform.get(supplier_id), PropertyDefinition.getByNameAndDescr('NatStat Supplier ID', PropertyDefinition.PLA_PROP))
                     result.natStatSupplierId = platform?.stringValue ?: null
                     result.institutional_usage_identifier = OrgSettings.get(result.institution, OrgSettings.KEYS.NATSTAT_SERVER_REQUESTOR_ID)
                     if (result.institutional_usage_identifier) {
@@ -4133,7 +4133,7 @@ class SubscriptionController
                         if (subMember.customProperties) {
                             //customProperties
                             for (prop in subMember.customProperties) {
-                                SubscriptionCustomProperty copiedProp = new SubscriptionCustomProperty(type: prop.type, owner: newSubscription)
+                                SubscriptionProperty copiedProp = new SubscriptionProperty(type: prop.type, owner: newSubscription)
                                 copiedProp = prop.copyInto(copiedProp)
                                 copiedProp.instanceOf = null
                                 copiedProp.save(flush: true)
@@ -4457,7 +4457,7 @@ class SubscriptionController
                             if (params.subscription.takeCustomProperties) {
                                 //customProperties
                                 for (prop in baseSub.customProperties) {
-                                    def copiedProp = new SubscriptionCustomProperty(type: prop.type, owner: newSub)
+                                    def copiedProp = new SubscriptionProperty(type: prop.type, owner: newSub)
                                     copiedProp = prop.copyInto(copiedProp)
                                     copiedProp.instanceOf = null
                                     copiedProp.save(flush: true)
@@ -5585,7 +5585,7 @@ class SubscriptionController
                 if (params.subscription.copyCustomProperties) {
                     //customProperties
                     for (prop in baseSubscription.customProperties) {
-                        def copiedProp = new SubscriptionCustomProperty(type: prop.type, owner: newSubscriptionInstance)
+                        def copiedProp = new SubscriptionProperty(type: prop.type, owner: newSubscriptionInstance)
                         copiedProp = prop.copyInto(copiedProp)
                         copiedProp.instanceOf = null
                         copiedProp.save()
@@ -6113,7 +6113,7 @@ class SubscriptionController
         def field = null
 
 
-        if(property instanceof SubscriptionCustomProperty || property instanceof SubscriptionPrivateProperty)
+        if(property instanceof SubscriptionProperty || property instanceof SubscriptionPrivateProperty)
         {
 
         }
