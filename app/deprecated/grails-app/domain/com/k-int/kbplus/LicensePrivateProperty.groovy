@@ -1,7 +1,7 @@
 package com.k_int.kbplus
 
 import com.k_int.kbplus.abstract_domain.AbstractPropertyWithCalculatedLastUpdated
-import PrivateProperty
+import com.k_int.kbplus.abstract_domain.PrivateProperty
 import com.k_int.properties.PropertyDefinition
 
 import javax.persistence.Transient
@@ -79,7 +79,7 @@ class LicensePrivateProperty extends PrivateProperty {
 
     @Transient
     def onDelete = { oldMap ->
-        com.k_int.kbplus.LicensePrivateProperty.log.debug("onDelete LicensePrivateProperty")
+        log.debug("onDelete LicensePrivateProperty")
         def oid = "${this.owner.class.name}:${this.owner.id}"
         Map<String, Object> changeDoc = [ OID: oid,
                                           event:'LicensePrivateProperty.deleted',
