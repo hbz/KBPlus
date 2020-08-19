@@ -1,4 +1,4 @@
-@import "settings/chartist-settings";
+@import "src/settings/chartist-settings";
 
 @mixin ct-responsive-svg-container($width: 100%, $ratio: $ct-container-ratio) {
   display: block;
@@ -236,53 +236,6 @@
       .#{nth($ct-scales-names, $i + 1)} {
         @include ct-responsive-svg-container($ratio: nth($ct-scales, $i + 1));
       }
-    }
-  }
-}
-// chartist plugin legend
-.ct-legend {
-  position: relative;
-  z-index: 10;
-  list-style: none;
-  text-align: center;
-
-  li {
-    position: relative;
-    padding-left: 23px;
-    margin-right: 10px;
-    margin-bottom: 3px;
-    cursor: pointer;
-    display: inline-block;
-  }
-
-  li:before {
-    width: 17px;
-    height: 17px;
-    position: absolute;
-    left: 0;
-    content: '';
-    border: 3px solid transparent;
-    border-radius: 2px;
-  }
-
-  li.inactive:before {
-    background: transparent;
-  }
-
-  &.ct-legend-inside {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    li {
-        display: block;
-        margin: 0;
-    }
-  }
-
-  @for $i from 0 to length($ct-series-colors) {
-    .ct-series-#{$i}:before {
-      background-color: nth($ct-series-colors, $i + 1);
-      border-color: nth($ct-series-colors, $i + 1);
     }
   }
 }

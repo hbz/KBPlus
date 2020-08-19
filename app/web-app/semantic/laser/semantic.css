@@ -695,6 +695,12 @@ input::-moz-selection {
   color: rgba(0, 0, 0, 0.87);
 }
 
+textarea::-moz-selection,
+input::-moz-selection {
+  background-color: rgba(100, 100, 100, 0.4);
+  color: rgba(0, 0, 0, 0.87);
+}
+
 textarea::selection,
 input::selection {
   background-color: rgba(100, 100, 100, 0.4);
@@ -999,9 +1005,9 @@ aside.ui.accordion .title:not(.ui) {
   cursor: default!important;
   display: inline-block !important;
   text-align: left;
-  line-height: 1.6em!important;
-  background-color: #d7c4b2!important;
-  color: #544e48!important;
+  line-height: 1.6em !important;
+  background-color: #d7c4b2 !important;
+  color: #544e48 !important;
   font-weight: 400!important;
   width: 100%;
   /* Inside Link */
@@ -1031,7 +1037,7 @@ aside.ui.accordion .title:not(.ui) {
 /* Filter */
 
 .la-input-selected {
-  background-color: #cbd9e2!important;
+  background-color: #cbd9e2 !important;
 }
 
 .la-right {
@@ -1103,7 +1109,7 @@ aside.ui.accordion .title:not(.ui) {
 
 .ui.two.cards > .card.la-time-card .editable-input input[type=text] {
   padding-right: 1em!important;
-  padding-left: 0.5em!important;
+  padding-left: 0.5em !important;
   width: 8rem!important;
 }
 
@@ -2600,7 +2606,7 @@ aside.ui.accordion .title:not(.ui) {
 }
 
 .ui.eight.buttons > .button {
-  width: 12.500%;
+  width: 12.5%;
 }
 
 .ui.nine.buttons {
@@ -2670,7 +2676,7 @@ aside.ui.accordion .title:not(.ui) {
 }
 
 .ui.eight.vertical.buttons > .button {
-  height: 12.500%;
+  height: 12.5%;
 }
 
 .ui.nine.vertical.buttons > .button {
@@ -5635,7 +5641,7 @@ aside.ui.accordion .title:not(.ui) {
 }
 
 .ui.button.la-new-item {
-  margin-left: .8rem;
+  margin-left: 0.8rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -5723,13 +5729,13 @@ aside.ui.accordion .title:not(.ui) {
 
 .la-title {
   color: #767676;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
 }
 
 .ui.button.la-inline-labeled {
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   height: 2.571em;
 }
 
@@ -7181,9 +7187,9 @@ body[class*="platform"] .ui.icon.header .circular.icon.la-object:before {
 }
 
 .ui.icon.header .icon.button {
-  padding: .78571429em .78571429em .78571429em;
+  padding: 0.78571429em 0.78571429em 0.78571429em;
   font-size: 1em;
-  margin: 0 .25em 0 0;
+  margin: 0 0.25em 0 0;
 }
 
 .ui.icon.header .icon.button i.icon {
@@ -13595,7 +13601,7 @@ i.inverted.circular.la-light-grey.icon {
 }
 
 i.inverted.circular.icon.la-filter-icon {
-  background-color: #8699b1!important;
+  background-color: #8699b1 !important;
 }
 /*!
  * # Semantic UI 2.3.1 - Image
@@ -14822,16 +14828,16 @@ a.ui.label {
 /* Positioning */
 
 .ui.ribbon.label {
-  left: calc(-2.2rem);
+  left: calc(-1rem - 1.2em);
   margin-right: -1.2em;
-  padding-left: calc(2.2rem);
+  padding-left: calc(1rem + 1.2em);
   padding-right: 1.2em;
 }
 
 .ui[class*="right ribbon"].label {
-  left: calc(102.2%);
+  left: calc(100% + 1rem + 1.2em);
   padding-left: 1.2em;
-  padding-right: calc(2.2rem);
+  padding-right: calc(1rem + 1.2em);
 }
 
 /* Right Ribbon */
@@ -14862,23 +14868,23 @@ a.ui.label {
 
 .ui.card .image > .ui.ribbon.label,
 .ui.image > .ui.ribbon.label {
-  left: calc(-1.15rem);
+  left: calc(--0.05rem - 1.2em);
 }
 
 .ui.card .image > .ui[class*="right ribbon"].label,
 .ui.image > .ui[class*="right ribbon"].label {
-  left: calc(101.15%);
+  left: calc(100% + -0.05rem + 1.2em);
   padding-left: 0.833em;
 }
 
 /* Inside Table */
 
 .ui.table td > .ui.ribbon.label {
-  left: calc(-1.98571429em);
+  left: calc(-0.78571429em - 1.2em);
 }
 
 .ui.table td > .ui[class*="right ribbon"].label {
-  left: calc(101.98571429%);
+  left: calc(100% + 0.78571429em + 1.2em);
   padding-left: 0.833em;
 }
 
@@ -15900,7 +15906,7 @@ a.ui.basic.label:hover {
 }
 
 .finance_index .ui.ribbon.label {
-  left: calc(-2.8rem);
+  left: calc(-1rem - 1.8em);
   top: -22px;
 }
 
@@ -15941,7 +15947,7 @@ a.ui.basic.label:hover {
 
 .ui.label.la-annual-rings i.disabled.icon {
   opacity: 0!important;
-  margin: 0 0 0 .1em;
+  margin: 0 0 0 0.1em;
 }
 
 .ui.label.la-annual-rings .la-status-active {
@@ -16024,11 +16030,11 @@ a.ui.basic.label:hover {
 }
 
 .confirmation-term span {
-  margin: 0 .5em 0 0;
-  padding: .4em .833em;
+  margin: 0 0.5em 0 0;
+  padding: 0.4em 0.833em;
   min-width: 3em;
   text-align: center;
-  font-size: .85714286rem;
+  font-size: 0.85714286rem;
   display: inline-block;
   line-height: 1;
   vertical-align: baseline;
@@ -16044,11 +16050,11 @@ a.ui.basic.label:hover {
 }
 
 #js-confirmation-term-where-detail {
-  margin: 0 .5em 0 0;
-  padding: .4em .833em;
+  margin: 0 0.5em 0 0;
+  padding: 0.4em 0.833em;
   min-width: 3em;
   text-align: center;
-  font-size: .85714286rem;
+  font-size: 0.85714286rem;
   display: inline-block;
   line-height: 1;
   vertical-align: baseline;
@@ -16075,21 +16081,21 @@ a.ui.basic.label:hover {
 .confirmation-content span {
   min-width: 2em;
   min-height: 2em;
-  padding: .5em!important;
+  padding: 0.5em !important;
   text-align: center;
   border-radius: 500rem;
   display: inline-block;
   line-height: 1em;
   vertical-align: baseline;
-  margin: 0 .14285714em;
+  margin: 0 0.14285714em;
   background-color: #e8e8e8;
   background-image: none;
   color: rgba(0, 0, 0, 0.6);
   text-transform: none;
   font-weight: 700;
   border: 0 solid transparent;
-  -webkit-transition: background .1s ease;
-  transition: background .1s ease;
+  -webkit-transition: background 0.1s ease;
+  transition: background 0.1s ease;
 }
 
 /*******************************
@@ -17220,7 +17226,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.divided.middle.la-flex-list .item:hover .button.disabled {
-  opacity: 0.3!important;
+  opacity: 0.3 !important;
 }
 
 .ui.divided.middle.la-flex-list .item .button:focus {
@@ -17245,14 +17251,14 @@ ol.ui.horizontal.list li:before,
 
 .la-icon-list .item > .ui.icon {
   display: table-cell;
-  padding: 0 0 .2em .5em;
+  padding: 0 0 0.2em 0.5em;
   vertical-align: middle;
 }
 
 .la-icon-list .item .content {
   display: table-cell;
   width: 100%;
-  padding: 0 0 .2em .5em;
+  padding: 0 0 0.2em 0.5em;
 }
 
 dl {
@@ -17649,6 +17655,285 @@ dd {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+/*!
+ * # Semantic UI 2.3.1 - Loader
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+/*-------------------
+      Content
+--------------------*/
+
+.ui.placeholder {
+  position: static;
+  overflow: hidden;
+  -webkit-animation: placeholderShimmer 2s linear;
+  animation: placeholderShimmer 2s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-color: #FFFFFF;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.08)), color-stop(15%, rgba(0, 0, 0, 0.15)), color-stop(30%, rgba(0, 0, 0, 0.08)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.15) 15%, rgba(0, 0, 0, 0.08) 30%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.15) 15%, rgba(0, 0, 0, 0.08) 30%);
+  background-size: 1200px 100%;
+  max-width: 30rem;
+}
+
+@-webkit-keyframes placeholderShimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+
+  100% {
+    background-position: 1200px 0;
+  }
+}
+
+.ui.placeholder + .ui.placeholder {
+  margin-top: 2rem;
+}
+
+.ui.placeholder + .ui.placeholder {
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}
+
+.ui.placeholder + .ui.placeholder + .ui.placeholder {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.ui.placeholder + .ui.placeholder + .ui.placeholder + .ui.placeholder {
+  -webkit-animation-delay: 0.45s;
+  animation-delay: 0.45s;
+}
+
+.ui.placeholder + .ui.placeholder + .ui.placeholder + .ui.placeholder + .ui.placeholder {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.ui.placeholder,
+.ui.placeholder > :before,
+.ui.placeholder .image.header:after,
+.ui.placeholder .line,
+.ui.placeholder .line:after {
+  background-color: #FFFFFF;
+}
+
+/* Image */
+
+.ui.placeholder .image:not(.header):not(.ui) {
+  height: 100px;
+}
+
+.ui.placeholder .square.image:not(.header) {
+  height: 0px;
+  overflow: hidden;
+  /* 1/1 aspect ratio */
+  padding-top: 100%;
+}
+
+.ui.placeholder .rectangular.image:not(.header) {
+  height: 0px;
+  overflow: hidden;
+  /* 4/3 aspect ratio */
+  padding-top: 75%;
+}
+
+/* Lines */
+
+.ui.placeholder .line {
+  position: relative;
+  height: 0.85714286em;
+}
+
+.ui.placeholder .line:before,
+.ui.placeholder .line:after {
+  top: 100%;
+  position: absolute;
+  content: '';
+  background-color: inherit;
+}
+
+.ui.placeholder .line:before {
+  left: 0px;
+}
+
+.ui.placeholder .line:after {
+  right: 0px;
+}
+
+/* Any Lines */
+
+.ui.placeholder .line {
+  margin-bottom: 0.5em;
+}
+
+.ui.placeholder .line:before,
+.ui.placeholder .line:after {
+  height: 0.5em;
+}
+
+.ui.placeholder .line:not(:first-child) {
+  margin-top: 0.5em;
+}
+
+/* Header Image + 2 Lines */
+
+.ui.placeholder .header {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Line Outdent */
+
+.ui.placeholder .line:nth-child(1):after {
+  width: 0%;
+}
+
+.ui.placeholder .line:nth-child(2):after {
+  width: 50%;
+}
+
+.ui.placeholder .line:nth-child(3):after {
+  width: 10%;
+}
+
+.ui.placeholder .line:nth-child(4):after {
+  width: 35%;
+}
+
+.ui.placeholder .line:nth-child(5):after {
+  width: 65%;
+}
+
+/* Header Line 1 & 2*/
+
+.ui.placeholder .header .line {
+  margin-bottom: 0.64285714em;
+}
+
+.ui.placeholder .header .line:before,
+.ui.placeholder .header .line:after {
+  height: 0.64285714em;
+}
+
+.ui.placeholder .header .line:not(:first-child) {
+  margin-top: 0.64285714em;
+}
+
+.ui.placeholder .header .line:after {
+  width: 20%;
+}
+
+.ui.placeholder .header .line:nth-child(2):after {
+  width: 60%;
+}
+
+/* Image Header */
+
+.ui.placeholder .image.header .line {
+  margin-left: 3em;
+}
+
+.ui.placeholder .image.header .line:before {
+  width: 0.71428571rem;
+}
+
+.ui.placeholder .image.header:after {
+  display: block;
+  height: 0.85714286em;
+  content: '';
+  margin-left: 3em;
+}
+
+/* Spacing */
+
+.ui.placeholder .image .line:first-child,
+.ui.placeholder .paragraph .line:first-child,
+.ui.placeholder .header .line:first-child {
+  height: 0.01px;
+}
+
+.ui.placeholder .image:not(:first-child):before,
+.ui.placeholder .paragraph:not(:first-child):before,
+.ui.placeholder .header:not(:first-child):before {
+  height: 1.42857143em;
+  content: '';
+  display: block;
+}
+
+/* Inverted Content Loader */
+
+.ui.inverted.placeholder {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.08)), color-stop(15%, rgba(255, 255, 255, 0.14)), color-stop(30%, rgba(255, 255, 255, 0.08)));
+  background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.14) 15%, rgba(255, 255, 255, 0.08) 30%);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.14) 15%, rgba(255, 255, 255, 0.08) 30%);
+}
+
+.ui.inverted.placeholder,
+.ui.inverted.placeholder > :before,
+.ui.inverted.placeholder .image.header:after,
+.ui.inverted.placeholder .line,
+.ui.inverted.placeholder .line:after {
+  background-color: #1B1C1D;
+}
+
+/*******************************
+            Variations
+*******************************/
+
+/*-------------------
+        Sizes
+--------------------*/
+
+.ui.placeholder .full.line.line.line:after {
+  width: 0%;
+}
+
+.ui.placeholder .very.long.line.line.line:after {
+  width: 10%;
+}
+
+.ui.placeholder .long.line.line.line:after {
+  width: 35%;
+}
+
+.ui.placeholder .medium.line.line.line:after {
+  width: 50%;
+}
+
+.ui.placeholder .short.line.line.line:after {
+  width: 65%;
+}
+
+.ui.placeholder .very.short.line.line.line:after {
+  width: 80%;
+}
+
+/*-------------------
+        Fluid
+--------------------*/
+
+.ui.fluid.placeholder {
+  max-width: none;
 }
 /*!
  * # Semantic UI 2.3.1 - Rail
@@ -18987,8 +19272,8 @@ dd {
   bottom: 0px;
   border-radius: 0px;
   margin: 0em -1px;
-  width: calc(100% +  2px );
-  max-width: calc(100% +  2px );
+  width: calc(100% - (-1px * 2));
+  max-width: calc(100% - (-1px * 2));
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid #D4D4D5;
@@ -19663,9 +19948,9 @@ dd {
 /* Top */
 
 .ui.attached.steps {
-  width: calc(102%) !important;
+  width: calc(100% + (--1px * 2)) !important;
   margin: 0em -1px 0;
-  max-width: calc(102%);
+  max-width: calc(100% + (--1px * 2));
   border-radius: 0 0 0em 0em;
 }
 
@@ -19748,7 +20033,7 @@ dd {
 }
 
 .ui.eight.steps > .step {
-  width: 12.500%;
+  width: 12.5%;
 }
 
 /*-------------------
@@ -21277,9 +21562,9 @@ i.search.icon#btn-search {
 }
 
 legend {
-  margin: 0 0 .28571429rem 0;
+  margin: 0 0 0.28571429rem 0;
   color: rgba(0, 0, 0, 0.87);
-  font-size: .92857143em;
+  font-size: 0.92857143em;
   font-weight: 700;
 }
 /*!
@@ -21443,7 +21728,7 @@ legend {
 }
 
 .ui.grid .column + .ui.vertical.divider {
-  height: calc(49%);
+  height: calc(50% - (2rem / 2));
 }
 
 /* Remove Border on Last Horizontal Segment */
@@ -22530,7 +22815,7 @@ legend {
   content: "";
   top: 0em;
   left: 0px;
-  width: calc(98%);
+  width: calc(100% - 2rem);
   height: 1px;
   margin: 0% 1rem;
   -webkit-box-shadow: 0px -1px 0px 0px #d3dae3;
@@ -22575,13 +22860,13 @@ legend {
 .ui.relaxed[class*="vertically divided"].grid > .row:before {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  width: calc(97%);
+  width: calc(100% - 3rem);
 }
 
 .ui[class*="very relaxed"][class*="vertically divided"].grid > .row:before {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
-  width: calc(95%);
+  width: calc(100% - 5rem);
 }
 
 /*----------------------
@@ -23828,7 +24113,7 @@ legend {
 /* Menu */
 
 .ui.menu .dropdown.item .menu {
-  min-width: calc(99%);
+  min-width: calc(100% - 1px);
   border-radius: 0em 0em 0 0;
   background: #FFFFFF;
   margin: 0em 0px 0px;
@@ -24269,7 +24554,7 @@ Floated Menu / Item
 }
 
 .ui.tabular.fluid.menu {
-  width: calc(100% +  2px ) !important;
+  width: calc(100% + (1px * 2)) !important;
 }
 
 .ui.tabular.menu .item {
@@ -24320,7 +24605,7 @@ Floated Menu / Item
 
 .top.attached.segment + .ui.bottom.tabular.menu {
   position: relative;
-  width: calc(100% +  2px );
+  width: calc(100% + (1px * 2));
   left: -1px;
 }
 
@@ -25551,7 +25836,7 @@ Floated Menu / Item
 }
 
 .ui.menu.eight.item .item {
-  width: 12.500%;
+  width: 12.5%;
 }
 
 .ui.menu.nine.item .item {
@@ -25559,7 +25844,7 @@ Floated Menu / Item
 }
 
 .ui.menu.ten.item .item {
-  width: 10.0%;
+  width: 10%;
 }
 
 .ui.menu.eleven.item .item {
@@ -25733,8 +26018,8 @@ Floated Menu / Item
   bottom: 0px;
   border-radius: 0px;
   margin: 0em 0;
-  width: calc(100% +  0 );
-  max-width: calc(100% +  0 );
+  width: calc(100% - (0 * 2));
+  max-width: calc(100% - (0 * 2));
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -27195,8 +27480,8 @@ Floated Menu / Item
   bottom: 0px;
   border-radius: 0px;
   margin: 0em -1px;
-  width: calc(100% +  2px );
-  max-width: calc(100% +  2px );
+  width: calc(100% - (-1px * 2));
+  max-width: calc(100% - (-1px * 2));
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid #D4D4D5;
@@ -27626,14 +27911,14 @@ Floated Menu / Item
 }
 
 .ui.sortable.table thead th:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: @#D3DAE3;
   color: rgba(0, 0, 0, 0.8);
 }
 
 /* Sorted */
 
 .ui.sortable.table thead th.sorted {
-  background: rgba(0, 0, 0, 0.05);
+  background: @#D3DAE3;
   color: #515151;
 }
 
@@ -27644,7 +27929,7 @@ Floated Menu / Item
 /* Sorted Hover */
 
 .ui.sortable.table thead th.sorted:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: @#D3DAE3;
   color: rgba(0, 0, 0, 0.95);
 }
 
@@ -29566,7 +29851,7 @@ a.ui.card:hover,
   color: gray;
   font-size: 0.8rem;
   text-transform: uppercase;
-  padding-left: .9rem;
+  padding-left: 0.9rem;
 }
 
 .la-inline-lists dl {
@@ -31666,161 +31951,6 @@ a.ui.card:hover,
 .ui.accordion .title .dropdown.icon:before,
 .ui.accordion .accordion .title .dropdown.icon:before {
   content: '\f0da' ;
-}
-/*!
- * # Semantic UI 2.3.1 - Calendar
- * http://github.com/semantic-org/semantic-ui/
- *
- *
- * Released under the MIT license
- * http://opensource.org/licenses/MIT
- *
- */
-
-/*******************************
-            Popup
-*******************************/
-
-.ui.calendar .ui.popup {
-  max-width: none;
-  padding: 0;
-  border: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/*******************************
-            Calendar
-*******************************/
-
-.ui.calendar .calendar:focus {
-  outline: 0;
-}
-
-/*******************************
-            Grid
-*******************************/
-
-.ui.calendar .ui.popup .ui.grid {
-  display: block;
-  white-space: nowrap;
-}
-
-.ui.calendar .ui.popup .ui.grid > .column {
-  width: auto;
-}
-
-/*******************************
-            Table
-*******************************/
-
-.ui.calendar .ui.table.year,
-.ui.calendar .ui.table.month,
-.ui.calendar .ui.table.minute {
-  min-width: 15em;
-}
-
-.ui.calendar .ui.table.day {
-  min-width: 18em;
-}
-
-.ui.calendar .ui.table.hour {
-  min-width: 20em;
-}
-
-.ui.calendar .ui.table tr th,
-.ui.calendar .ui.table tr td {
-  padding: 0.5em;
-  white-space: nowrap;
-}
-
-.ui.calendar .ui.table tr th {
-  border-left: none;
-}
-
-.ui.calendar .ui.table tr th .icon {
-  margin: 0;
-}
-
-.ui.calendar .ui.table tr th .icon {
-  margin: 0;
-}
-
-.ui.calendar .ui.table tr:first-child th {
-  position: relative;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.ui.calendar .ui.table.day tr:first-child th {
-  border: none;
-}
-
-.ui.calendar .ui.table.day tr:nth-child(2) th {
-  padding-top: 0.2em;
-  padding-bottom: 0.3em;
-}
-
-.ui.calendar .ui.table tr td {
-  padding-left: 0.1em;
-  padding-right: 0.1em;
-}
-
-.ui.calendar .ui.table tr .link {
-  cursor: pointer;
-}
-
-.ui.calendar .ui.table tr .prev.link {
-  width: 14.28571429%;
-  position: absolute;
-  left: 0;
-}
-
-.ui.calendar .ui.table tr .next.link {
-  width: 14.28571429%;
-  position: absolute;
-  right: 0;
-}
-
-.ui.calendar .ui.table tr .disabled {
-  pointer-events: none;
-  color: rgba(40, 40, 40, 0.3);
-}
-
-/*--------------
-     States
----------------*/
-
-.ui.calendar .ui.table tr td.today {
-  font-weight: bold;
-}
-
-.ui.calendar .ui.table tr td.range {
-  background: rgba(0, 0, 0, 0.05);
-  color: rgba(0, 0, 0, 0.95);
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.ui.calendar .ui.table.inverted tr td.range {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.ui.calendar .calendar:focus .ui.table tbody tr td.focus,
-.ui.calendar .calendar.active .ui.table tbody tr td.focus {
-  -webkit-box-shadow: inset 0 0 0 1px #85B7D9;
-  box-shadow: inset 0 0 0 1px #85B7D9;
-}
-
-.ui.calendar .calendar:focus .ui.table.inverted tbody tr td.focus,
-.ui.calendar .calendar.active .ui.table.inverted tbody tr td.focus {
-  -webkit-box-shadow: inset 0 0 0 1px #85B7D9;
-  box-shadow: inset 0 0 0 1px #85B7D9;
 }
 /*!
  * # Semantic UI 2.3.1 - Checkbox
@@ -34167,7 +34297,7 @@ select.ui.dropdown {
 @media all and (-ms-high-contrast: none) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
-    min-width: calc(83%);
+    min-width: calc(100% - 17px);
   }
 }
 
@@ -35216,7 +35346,7 @@ select.ui.dropdown {
 /* Scrolling Content */
 
 .ui.modal .scrolling.content {
-  max-height: calc(70vh);
+  max-height: calc(80vh - 10em);
   overflow: auto;
 }
 
