@@ -1,18 +1,18 @@
 /*******************************
-          Build Task
-*******************************/
+ Build Task
+ *******************************/
 
 var
-  // dependencies
-  gulp         = require('gulp-help')(require('gulp')),
-  runSequence  = require('run-sequence'),
+    // dependencies
+    gulp         = require('gulp-help')(require('gulp')),
+    runSequence  = require('run-sequence'),
 
-  // config
-  config       = require('./config/user'),
-  install      = require('./config/project/install'),
+    // config
+    config       = require('./config/user'),
+    install      = require('./config/project/install'),
 
-  // task sequence
-  tasks        = []
+    // task sequence
+    tasks        = []
 ;
 
 
