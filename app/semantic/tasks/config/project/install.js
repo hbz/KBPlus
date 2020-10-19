@@ -396,6 +396,7 @@ module.exports = {
           { name: "search", checked: true },
           { name: "shape", checked: true },
           { name: "sidebar", checked: true },
+          { name: "slider", checked: true },
           { name: "sticky", checked: true },
           { name: "tab", checked: true },
           { name: "transition", checked: true },

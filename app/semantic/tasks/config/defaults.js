@@ -95,6 +95,7 @@ module.exports = {
     'search',
     'shape',
     'sidebar',
+    'slider',
     'sticky',
     'tab',
     'transition',
