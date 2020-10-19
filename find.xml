@@ -5,6 +5,7 @@
     <option name="localWholeWordsOnly" value="true" />
     <option name="LOCAL_WHOLE_WORDS_ONLY" value="true" />
     <option name="SEARCH_SCOPE" value="All Places" />
+    <option name="FILE_MASK" value="*.less" />
     <mask>*.css</mask>
     <mask>*.html</mask>
     <mask>*.xml</mask>
@@ -13,5 +14,6 @@
     <mask>*.java</mask>
     <mask>*.gsp</mask>
     <mask>*.overrides</mask>
+    <mask>*.less</mask>
   </component>
 </application>
