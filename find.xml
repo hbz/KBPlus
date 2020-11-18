@@ -1,8 +1,8 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="All Places" />
-    <option name="defaultScopeName" value="All Places" />
-    <option name="SEARCH_SCOPE" value="All Places" />
+    <option name="customScope" value="File '...\grails-app\assets\themes\accessibility\semantic.css [laser2.main]'" />
+    <option name="defaultScopeName" value="File '...\grails-app\assets\themes\accessibility\semantic.css [laser2.main]'" />
+    <option name="SEARCH_SCOPE" value="File '...\grails-app\assets\themes\accessibility\semantic.css [laser2.main]'" />
     <mask>*.css</mask>
     <mask>*.html</mask>
     <mask>*.xml</mask>
